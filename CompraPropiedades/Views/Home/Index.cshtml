@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+    <link href="~/Content/index/index.css?@DateTime.Now.Second" rel="stylesheet"  />
+    <div id="dv-form">
+        @Html.Label("¡Busca tu propiedad!");
+        <hr />
+        <div class="row">
+            <div class="col-sm-6">
+                <a href="casas">Casas</a>
+            </div>
+            <div class="col-sm-6">
+                <a href="/">Apartamentos</a>
+            </div>
+        </div>
+        <hr />
+        @using (Html.BeginForm("", "", FormMethod.Post, new { enctype = "wwww-form-application", @id = "frmBuscarPropiedad", @onSubmit = "return false" }))
+        {
+            <div id="dvPrecio" class="row">
+                <div class="col-sm-6">
+                    @Html.DropDownList("Precio_Desde", new SelectList("", ""), "RD$ 0", new { @id = "slcPrecioDesde", @class = "form-control" })
+                </div>
+                <div class="col-sm-6">
+                    @Html.DropDownList("Precio_Hasta", new SelectList("", ""), "RD$ 100,000", new { @id = "slcPrecioHasta", @class = "form-control" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    @Html.DropDownList("Provincia", new SelectList("", ""), "Seleccione una provincia", new { @id = "slcProvincia", @class = "form-control", @placeholder = "Provincia" })
+                </div>
+                <div class="col-sm-6">
+                    @Html.DropDownList("Sector", new SelectList("", ""), "Seleccione un sector", new { @id = "slcSector", @class = "form-control", @placeholder = "Sector" })
+                </div>
+
+            </div>
+            <input type="submit" class="btn btn-primary" value="Buscar" id="btnBuscar">
+        }
+    </div>
+<script src="~/Scripts/index/index.js"></script>
