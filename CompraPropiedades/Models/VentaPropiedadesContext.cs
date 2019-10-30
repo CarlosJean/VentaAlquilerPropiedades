@@ -17,6 +17,9 @@ namespace CompraPropiedades.Models
         public DbSet<Precio> Precios { get; set; }
         public DbSet<Provincia> Provincias { get; set; }
         public DbSet<Sector> Sectores{ get; set; }
+        public DbSet<User> User { get; set; }
+        public DbSet<PropertyType> PropertyType { get; set; }
+        public DbSet<Publication> Publication { get; set; }
 
 
     }

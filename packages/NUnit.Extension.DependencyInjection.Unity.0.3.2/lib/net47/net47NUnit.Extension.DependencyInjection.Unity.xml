@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NUnit.Extension.DependencyInjection.Unity</name>
+    </assembly>
+    <members>
+        <member name="T:NUnit.Extension.DependencyInjection.Unity.ConventionMappingTypeDiscoverer">
+            <summary>
+            An <see cref="T:NUnit.Extension.DependencyInjection.ITypeDiscoverer"/> whose implementation identifies all assemblies
+            marked with the <see cref="T:NUnit.Extension.DependencyInjection.NUnitAutoScanAssemblyAttribute"/> and identifies
+            types with matching interfaces using Unity's <see
+            cref="M:Unity.RegistrationByConvention.WithMappings.FromMatchingInterface(System.Type)"/> mechanism for registering types
+            with the inversion of control container.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extension.DependencyInjection.Unity.ConventionMappingTypeDiscoverer.DiscoverInternal(Unity.IUnityContainer)">
+            <inheritdoc/>
+            <summary>
+            Registers types from all assemblies marked with the <see
+            cref="T:NUnit.Extension.DependencyInjection.NUnitAutoScanAssemblyAttribute"/> and identifies
+            types with matching interfaces using Unity's <see
+            cref="M:Unity.RegistrationByConvention.WithMappings.FromMatchingInterface(System.Type)"/> mechanism for registering types
+            with the inversion of control container.
+            </summary>
+            <param name="container">
+            The container with which the dependencies will
+            be registered.
+            </param>
+        </member>
+        <member name="T:NUnit.Extension.DependencyInjection.Unity.IocRegistrarTypeDiscoverer">
+            <summary>
+            A type discoverer which does discovery based on the set of discovered type
+            registers but otherwise does no scanning of loaded assemblies.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extension.DependencyInjection.Unity.IocRegistrarTypeDiscoverer.DiscoverInternal(Unity.IUnityContainer)">
+            <inheritdoc />
+        </member>
+        <member name="T:NUnit.Extension.DependencyInjection.Unity.UnityInjectionFactory">
+            <summary>
+            This class is an <see cref="T:NUnit.Extension.DependencyInjection.IInjectionFactory"/> referenced through the
+            <see cref="T:NUnit.Extension.DependencyInjection.NUnitTypeInjectionFactoryAttribute"/> as a means of specifying
+            the concrete type that is used to create the instances which are
+            injected into test fixtures decorated with the <see
+            cref="T:NUnit.Extension.DependencyInjection.DependencyInjectingBaseTestFixtureAttribute"/>.
+            </summary>
+            <example>
+            [assembly: NUnitTypeInjectionFactory(typeof(UnityIocContainer))]
+            </example>
+        </member>
+        <member name="M:NUnit.Extension.DependencyInjection.Unity.UnityInjectionFactory.#ctor">
+            <summary>
+            Creates an instance of the <see cref="T:NUnit.Extension.DependencyInjection.Unity.UnityInjectionFactory"/> configured
+            to use a singleton <see cref="T:Unity.UnityContainer"/>.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extension.DependencyInjection.Unity.UnityInjectionFactory.#ctor(System.Func{Unity.IUnityContainer})">
+            <summary>
+            <para>
+            Creates an instance of the <see cref="T:NUnit.Extension.DependencyInjection.Unity.UnityInjectionFactory"/> configured
+            to use the <paramref name="lazyContainer"/> function to create the container
+            that will be used to resolve the parameters to the test fixtures.
+            </para>
+            <para>
+            The <paramref name="lazyContainer"/> instance will be called once to create
+            the container. All subsequent calls to the injection factory will use the
+            previously created instance of the container.
+            </para>
+            </summary>
+            <param name="lazyContainer">
+            The factory function used to create the container.
+            </param>
+        </member>
+        <member name="M:NUnit.Extension.DependencyInjection.Unity.UnityInjectionFactory.Initialize(NUnit.Extension.DependencyInjection.ITypeDiscoverer)">
+            <inheritdoc />
+        </member>
+        <member name="M:NUnit.Extension.DependencyInjection.Unity.UnityInjectionFactory.Create(System.Type)">
+            <inheritdoc />
+        </member>
+    </members>
+</doc>

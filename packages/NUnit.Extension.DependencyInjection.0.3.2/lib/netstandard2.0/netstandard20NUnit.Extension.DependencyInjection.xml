@@ -1,0 +1,523 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NUnit.Extension.DependencyInjection</name>
+    </assembly>
+    <members>
+        <member name="T:NUnit.Extension.DependencyInjection.AttributeBasedInjectionFactoryTypeSelector">
+            <summary>
+            Attribute by which the <see cref="T:NUnit.Extension.DependencyInjection.IInjectionFactoryTypeSelector"/> is chosen. When this
+            attribute is applied to the assembly all loaded assemblies for the current <see
+            cref="T:System.AppDomain"/> are scanned for this assembly and the <b>first</b> discovered one
+            is used to determine the injection factory to be used.
+            </summary>
+            <exception cref="T:System.InvalidOperationException">
+            Thrown when no <see cref="T:NUnit.Extension.DependencyInjection.NUnitTypeInjectionFactoryAttribute"/> is found among the
+            loaded assemblies.
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when the type returned by
+            <see cref="P:NUnit.Extension.DependencyInjection.NUnitTypeInjectionFactoryAttribute.InjectionFactoryType" />
+            is null.
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            Thrown when the type returned by
+            <see cref="P:NUnit.Extension.DependencyInjection.NUnitTypeInjectionFactoryAttribute.InjectionFactoryType" />
+            does not implement <see cref="T:NUnit.Extension.DependencyInjection.IInjectionFactory"/> or does not have a public
+            no-args constructor.
+            </exception>
+        </member>
+        <member name="M:NUnit.Extension.DependencyInjection.AttributeBasedInjectionFactoryTypeSelector.GetInjectionType">
+            <inheritdoc />
+        </member>
+        <member name="T:NUnit.Extension.DependencyInjection.AttributeBasedTypeDiscovererTypeSelector">
+            <summary>
+            Discovers the <see cref="T:NUnit.Extension.DependencyInjection.ITypeDiscoverer"/> that will be used to identify and
+            register types with the inversion of control container. It does so based on
+            the presence of the <see cref="T:NUnit.Extension.DependencyInjection.NUnitTypeDiscovererAttribute"/> and its
+            corresponding constructor parameter.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extension.DependencyInjection.AttributeBasedTypeDiscovererTypeSelector.GetTypeDiscovererType">
+            <inheritdoc />
+        </member>
+        <member name="T:NUnit.Extension.DependencyInjection.DependencyInjectingBaseAttribute">
+            <summary>
+            A base class provided for convenience to support customizing the dependency injection
+            process while using this extension.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extension.DependencyInjection.DependencyInjectingBaseAttribute.#ctor(System.Func{NUnit.Extension.DependencyInjection.IInjectingTestSuiteBuilder})">
+            <summary>
+            Creates an instance of the base class, using the <paramref name="builderFactory"/>
+            to create the <see cref="T:NUnit.Extension.DependencyInjection.IInjectingTestSuiteBuilder"/> that will be used to build
+            the test suite containing the tests.
+            </summary>
+            <param name="builderFactory">
+            The factory used to create test suite.
+            </param>
+        </member>
+        <member name="M:NUnit.Extension.DependencyInjection.DependencyInjectingBaseAttribute.BuildFrom(NUnit.Framework.Interfaces.ITypeInfo)">
+            <inheritdoc />
+        </member>
+        <member name="T:NUnit.Extension.DependencyInjection.DependencyInjectingBaseTestFixtureAttribute">
+            <summary>
+            Attribute used to mark a test fixture as being eligible for dependency injection
+            through the NUnit.Extension.DependencyInjection framework.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extension.DependencyInjection.DependencyInjectingBaseTestFixtureAttribute.#ctor">
+            <summary>
+            Creates an instance of the attribute. When this constructor is used dependency
+            injection will be performed based on the types specified by the
+            <see cref="T:NUnit.Extension.DependencyInjection.NUnitTypeInjectionFactoryAttribute"/> and the
+            <see cref="T:NUnit.Extension.DependencyInjection.NUnitTypeDiscovererAttribute"/>s.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extension.DependencyInjection.DependencyInjectingBaseTestFixtureAttribute.#ctor(System.Type,System.Type)">
+            <summary>
+            Creates an instance of the attribute. When this constructor is used dependency
+            injection will be performed using the types specified by the parameters.
+            </summary>
+            <param name="injectionFactoryType">
+            The <see cref="T:NUnit.Extension.DependencyInjection.IInjectionFactoryTypeSelector"/> type to be used to perform the
+            injection.
+            </param>
+            <param name="typeSelectorType">
+            The <see cref="T:NUnit.Extension.DependencyInjection.ITypeDiscovererTypeSelector"/> type to be used to discover the
+            types to be registered into the inversion of control container.
+            </param>
+        </member>
+        <member name="T:NUnit.Extension.DependencyInjection.DependencyResolutionException">
+            <summary>
+            Exception thrown when an error occurs attempting to resolve a dependency that
+            needed to be injected into a test fixture.
+            </summary>
+        </member>
+        <member name="P:NUnit.Extension.DependencyInjection.DependencyResolutionException.InjectionClassType">
+            <summary>
+            The type of class on which dependency injection was being performed.
+            </summary>
+        </member>
+        <member name="P:NUnit.Extension.DependencyInjection.DependencyResolutionException.InjectionParameterType">
+            <summary>
+            The type of parameter being injected into the <see cref="P:NUnit.Extension.DependencyInjection.DependencyResolutionException.InjectionClassType"/> class.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extension.DependencyInjection.DependencyResolutionException.#ctor(System.Type,System.Type,System.Exception)">
+            <inheritdoc />
+        </member>
+        <member name="T:NUnit.Extension.DependencyInjection.IInjectingTestSuiteBuilder">
+            <summary>
+            Interface used to create the test suite or suites on which dependency
+            injection will be performed if necessary.
+            </summary>
+            <remarks>
+            This interface is largely the dependency injection workhorse, providing
+            the functionality necessary to create a test suite, and thereby the
+            instance of the test fixture, while injecting necessary parameters.
+            </remarks>
+        </member>
+        <member name="M:NUnit.Extension.DependencyInjection.IInjectingTestSuiteBuilder.Build(NUnit.Framework.Interfaces.ITypeInfo)">
+            <summary>
+            Creates the test suite or suites on which dependency injection will be
+            performed if necessary.
+            </summary>
+            <param name="typeInfo">
+            Information about the type of suite to be created and into which
+            dependency injection is likely needed.
+            </param>
+            <returns>One or more test suites.</returns>
+        </member>
+        <member name="T:NUnit.Extension.DependencyInjection.IInjectionFactory">
+            <summary>
+            The main interface used to perform dependency injection on test fixtures.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extension.DependencyInjection.IInjectionFactory.Initialize(NUnit.Extension.DependencyInjection.ITypeDiscoverer)">
+            <summary>
+            Initializes the injection factory. This method will be called once after creation
+            of the factory.
+            </summary>
+            <remarks>
+            Because the injection factory is specified in an attribute and we don't yet have
+            an inversion of control container available to use, we rely on temporal coupling
+            (i.e., the call to this method before the call to <see cref="M:NUnit.Extension.DependencyInjection.IInjectionFactory.Create(System.Type)"/>) as a means
+            of performing necessary setup and configuration of the injection factory.
+            </remarks>
+            <param name="typeDiscoverer">
+            The type discoverer to be used by the <see cref="T:NUnit.Extension.DependencyInjection.IInjectionFactory"/>.
+            </param>
+        </member>
+        <member name="M:NUnit.Extension.DependencyInjection.IInjectionFactory.Create(System.Type)">
+            <summary>
+            Method used to create the type being injected into a test fixture.
+            </summary>
+            <param name="type">The type to be created.</param>
+            <returns>The created object; never null.</returns>
+            <exception cref="T:System.Exception">
+            Thrown when an error occurs creating the requested dependency.
+            </exception>
+            <remarks>
+            Implementations of this class may throw any reasonable type of exception as they
+            will be caught and wrapped by the <see cref="T:NUnit.Extension.DependencyInjection.IInjectionFactory"/>, resulting in
+            a <see cref="T:NUnit.Extension.DependencyInjection.DependencyResolutionException"/> being thrown to the caller.
+            </remarks>
+        </member>
+        <member name="T:NUnit.Extension.DependencyInjection.IInjectionFactoryTypeSelector">
+            <summary>
+            Interface by which the <see cref="T:NUnit.Extension.DependencyInjection.IInjectionFactory" /> is selected to
+            be used to perform dependency injection on the parameters injected into
+            the test fixtures.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extension.DependencyInjection.IInjectionFactoryTypeSelector.GetInjectionType">
+            <summary>
+            Identifies the type implementing <see cref="T:NUnit.Extension.DependencyInjection.IInjectionFactory"/> that
+            will be used to perform dependency injection.
+            </summary>
+            <returns>The type used to perform dependency injection.</returns>
+        </member>
+        <member name="T:NUnit.Extension.DependencyInjection.IIocRegistrar">
+            <summary>
+            Interface by which registration of dependencies with the inversion of
+            control container takes place when performing explicit registrations.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extension.DependencyInjection.IIocRegistrar.Register(System.Object)">
+            <summary>
+            The method called to register dependencies with the <paramref
+            name="container"/> when using a registrar based registration process.
+            </summary>
+            <param name="container">
+            The container into which dependencies will be registered.
+            </param>
+        </member>
+        <member name="T:NUnit.Extension.DependencyInjection.InjectingTestSuiteBuilder">
+            <summary>
+            Builder class that performs dependency injection.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extension.DependencyInjection.InjectingTestSuiteBuilder.#ctor(NUnit.Extension.DependencyInjection.IInjectionFactoryTypeSelector,NUnit.Extension.DependencyInjection.ITypeDiscovererTypeSelector)">
+            <summary>
+            Creates an instance of the builder using the provided parameters.
+            </summary>
+            <param name="injectionFactoryTypeSelector">
+            Selects the type of the injection factory.
+            </param>
+            <param name="typeDiscovererTypeSelector">
+            Selects the type of the type discoverer.
+            </param>
+        </member>
+        <member name="M:NUnit.Extension.DependencyInjection.InjectingTestSuiteBuilder.Build(NUnit.Framework.Interfaces.ITypeInfo)">
+            <inheritdoc />
+        </member>
+        <member name="M:NUnit.Extension.DependencyInjection.InjectingTestSuiteBuilder.GetParametersFor(System.Type)">
+            <summary>
+            Returns a set of <see cref="T:NUnit.Framework.Interfaces.ITestFixtureData"/> items for use as arguments
+            to a parameterized test fixture.
+            </summary>
+            <param name="sourceType">The type for which data is needed.</param>
+            <returns>Parameters needed to create the test fixture.</returns>
+        </member>
+        <member name="M:NUnit.Extension.DependencyInjection.InjectingTestSuiteBuilder.CreateTestSuite(NUnit.Framework.Interfaces.ITypeInfo,NUnit.Framework.Interfaces.ITestFixtureData)">
+            <summary>
+            Creates the test suite for the type described by <paramref name="typeInfo"/> which
+            requires dependencies specified by <paramref name="testFixtureData"/> to be injected.
+            </summary>
+            <param name="typeInfo">The type into which dependencies are injected.</param>
+            <param name="testFixtureData">The parameters required by the <paramref name="typeInfo"/>.</param>
+            <returns>
+            A non-null test suite.
+            </returns>
+        </member>
+        <member name="T:NUnit.Extension.DependencyInjection.InjectionArgsSource`1">
+            <summary>
+            An argument source used to inject parameters into types to support dependency injection.
+            </summary>
+            <typeparam name="T">The type for which parameters will be injected.</typeparam>
+        </member>
+        <member name="M:NUnit.Extension.DependencyInjection.InjectionArgsSource`1.#ctor(System.Func{System.Type,System.Object})">
+            <inheritdoc />
+            <param name="injectionFunc">
+            A function used to create the instance of the type.
+            </param>
+        </member>
+        <member name="T:NUnit.Extension.DependencyInjection.InjectionArgsSource">
+            <summary>
+            The base argument source used to inject parameters into types to support dependency injection.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extension.DependencyInjection.InjectionArgsSource.#ctor(System.Func{System.Type,System.Object},System.Type)">
+            <summary>
+            Creates an instance of the <see cref="T:NUnit.Extension.DependencyInjection.InjectionArgsSource"/> that will be used
+            to create the parameters for the <paramref name="typeToInjectInto"/>.
+            </summary>
+            <remarks>
+            The <paramref name="injectionFunc"/> must be thread safe.
+            </remarks>
+            <param name="injectionFunc">
+            Factory for creating the types necessary for the instantiation of the
+            <paramref name="typeToInjectInto"/>.
+            </param>
+            <param name="typeToInjectInto">The type into which the arguments will be injected.</param>
+        </member>
+        <member name="M:NUnit.Extension.DependencyInjection.InjectionArgsSource.GetInjectionParameters">
+            <summary>
+            Examines the type for which injection is being performed and creates
+            the instances of the necessary parameters.
+            </summary>
+            <returns>
+            The instantiated parameters in the order necessary to be passed to
+            a <see cref="T:System.Reflection.ConstructorInfo"/> object.
+            </returns>
+            <exception cref="T:System.InvalidOperationException">
+            Thrown when more than one constructor is present.
+            </exception>
+            <exception cref="T:NUnit.Extension.DependencyInjection.DependencyResolutionException">
+            Thrown when one of the dependencies cannot be constructed.
+            </exception>
+        </member>
+        <member name="T:NUnit.Extension.DependencyInjection.InjectionFactoryTypeValidator">
+            <summary>
+            Provides a means of validating that the injection type is valid.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extension.DependencyInjection.InjectionFactoryTypeValidator.AssertIsValidFactoryType(System.Type)">
+            <summary>
+            Validates that the injection type is valid. In other words,
+            that the following conditions are met:
+            <list type="bullet">
+            <item><paramref name="factoryType"/> is not null</item>
+            <item>The type implements the <see cref="T:NUnit.Extension.DependencyInjection.IInjectionFactory"/> interface</item>
+            <item>The type has a public no-args constructor</item>
+            </list>
+            </summary>
+            <param name="factoryType">The factory type to be validated.</param>
+        </member>
+        <member name="T:NUnit.Extension.DependencyInjection.ITypeDiscoverer">
+            <summary>
+            Identifies and registers types with the inversion of control container.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extension.DependencyInjection.ITypeDiscoverer.Discover(System.Object)">
+            <summary>
+            Identifies and registers types with the inversion of control container.
+            The types may be discovered through assembly scanning or some other
+            process.
+            </summary>
+            <param name="container">
+            The container into which the discovered types should be registered.
+            </param>
+        </member>
+        <member name="T:NUnit.Extension.DependencyInjection.ITypeDiscovererTypeSelector">
+            <summary>
+            Interface for identifying the <see cref="T:NUnit.Extension.DependencyInjection.ITypeDiscoverer"/> that
+            should be used to register types with the inversion of control
+            container.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extension.DependencyInjection.ITypeDiscovererTypeSelector.GetTypeDiscovererType">
+            <summary>
+            Identifies the type of the <see cref="T:NUnit.Extension.DependencyInjection.ITypeDiscoverer"/>.
+            </summary>
+            <returns>The type of the <see cref="T:NUnit.Extension.DependencyInjection.ITypeDiscoverer"/>.</returns>
+            <exception cref="T:System.InvalidOperationException">
+            Thrown when when the application is not properly configured for
+            type discovery, such as when no <see
+            cref="T:NUnit.Extension.DependencyInjection.NUnitTypeDiscovererAttribute"/> is present.
+            </exception>
+        </member>
+        <member name="T:NUnit.Extension.DependencyInjection.NUnitAutoScanAssemblyAttribute">
+            <summary>
+            Attribute whose presence within an assembly indicates that the
+            assembly should be scanned when types are being discovered
+            by the <see cref="T:NUnit.Extension.DependencyInjection.ITypeDiscoverer"/> and said type discoverer
+            is of the type that does convention based assembly scanning.
+            </summary>
+        </member>
+        <member name="T:NUnit.Extension.DependencyInjection.NUnitTypeDiscovererAttribute">
+            <summary>
+            Attribute that identifies the type of <see cref="T:NUnit.Extension.DependencyInjection.ITypeDiscoverer"/>
+            that should be used to discover the types that should be registered
+            with the inversion of control container.
+            </summary>
+        </member>
+        <member name="P:NUnit.Extension.DependencyInjection.NUnitTypeDiscovererAttribute.TypeDiscovererType">
+            <summary>
+            The type of the <see cref="T:NUnit.Extension.DependencyInjection.ITypeDiscoverer"/> that will be used.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extension.DependencyInjection.NUnitTypeDiscovererAttribute.#ctor(System.Type)">
+            <summary>
+            Creates an instance of the attribute specifying that the
+            <see cref="T:NUnit.Extension.DependencyInjection.ITypeDiscoverer"/> should be of type
+            <paramref name="typeDiscovererType"/>.
+            </summary>
+            <param name="typeDiscovererType">
+            The type of the <see cref="T:NUnit.Extension.DependencyInjection.ITypeDiscoverer"/> to be used.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when <paramref name="typeDiscovererType"/> is null.
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            Thrown when <paramref name="typeDiscovererType"/> does not
+            implement <see cref="T:NUnit.Extension.DependencyInjection.ITypeDiscoverer"/>.
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            Thrown when <paramref name="typeDiscovererType"/> does not
+            have a public no-args constructor.
+            </exception>
+        </member>
+        <member name="T:NUnit.Extension.DependencyInjection.NUnitTypeInjectionFactoryAttribute">
+            <summary>
+            Attribute that identifies the type of <see cref="T:NUnit.Extension.DependencyInjection.IInjectionFactory"/>
+            that will be used to create and inject instances into the test fixtures.
+            This will usually correspond to one of the factory types provided by a
+            NUnit.Extension.DependencyInjection.* NuGet package, such as the
+            <c>UnityInjectionFactory</c> provided by the
+            NUnit.Extension.DependencyInjection.Unity package.
+            </summary>
+        </member>
+        <member name="P:NUnit.Extension.DependencyInjection.NUnitTypeInjectionFactoryAttribute.InjectionFactoryType">
+            <summary>
+            The type of the configured <see cref="T:NUnit.Extension.DependencyInjection.IInjectionFactory"/>.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extension.DependencyInjection.NUnitTypeInjectionFactoryAttribute.#ctor(System.Type)">
+            <summary>
+            Creates an instance of the constructor declaring that the
+            <see cref="T:NUnit.Extension.DependencyInjection.IInjectionFactory"/> will be of type
+            <paramref name="factoryType"/>.
+            </summary>
+            <param name="factoryType">The type of the factory to use.</param>
+        </member>
+        <member name="T:NUnit.Extension.DependencyInjection.RegistrarBase`1">
+            <summary>
+            Convenience class for creating <see cref="T:NUnit.Extension.DependencyInjection.IIocRegistrar"/>s that
+            provide a strongly typed container type to the consumer.
+            </summary>
+            <typeparam name="T">
+            The type of the inversion of control container.
+            </typeparam>
+        </member>
+        <member name="M:NUnit.Extension.DependencyInjection.RegistrarBase`1.Register(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:NUnit.Extension.DependencyInjection.RegistrarBase`1.RegisterInternal(`0)">
+            <summary>
+            Convenience method by which registrations can be easily added
+            to a strongly typed version of the container.
+            </summary>
+            <param name="container">
+            The inversion of control container instance to which the
+            registrations will be added.
+            </param>
+        </member>
+        <member name="T:NUnit.Extension.DependencyInjection.StaticInjectionFactoryTypeSelector">
+            <summary>
+            Convenience type factory selector that returns the type provided at the
+            time the instance of this class was created.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extension.DependencyInjection.StaticInjectionFactoryTypeSelector.#ctor(System.Type)">
+            <summary>
+            Creates an instance of the class which will always return
+            <paramref name="type"/> as its <see cref="T:NUnit.Extension.DependencyInjection.IInjectionFactory"/>.
+            </summary>
+            <remarks>
+            This class is generally only used for writing unit tests and/or
+            other dependency injection extensions.
+            </remarks>
+            <param name="type">
+            The type of <see cref="T:NUnit.Extension.DependencyInjection.IInjectionFactory"/>.
+            </param>
+        </member>
+        <member name="M:NUnit.Extension.DependencyInjection.StaticInjectionFactoryTypeSelector.GetInjectionType">
+            <inheritdoc />
+        </member>
+        <member name="T:NUnit.Extension.DependencyInjection.StaticTypeDiscovererTypeSelector">
+            <summary>
+            <see cref="T:NUnit.Extension.DependencyInjection.ITypeDiscovererTypeSelector"/> that will always return the
+            type provided at the time of construction of this type selector.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extension.DependencyInjection.StaticTypeDiscovererTypeSelector.#ctor(System.Type)">
+            <summary>
+            Creates an instance of the type selector.
+            </summary>
+            <param name="type">The <see cref="T:NUnit.Extension.DependencyInjection.ITypeDiscoverer"/> to be used.</param>
+        </member>
+        <member name="M:NUnit.Extension.DependencyInjection.StaticTypeDiscovererTypeSelector.GetTypeDiscovererType">
+            <inheritdoc />
+        </member>
+        <member name="T:NUnit.Extension.DependencyInjection.TypeDiscovererBase`1">
+            <summary>
+            Convenience class for adding strong typing to the <see
+            cref="T:NUnit.Extension.DependencyInjection.ITypeDiscoverer"/> implementations.
+            </summary>
+            <typeparam name="T">
+            The type of the inversion of control container.
+            </typeparam>
+        </member>
+        <member name="M:NUnit.Extension.DependencyInjection.TypeDiscovererBase`1.Discover(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:NUnit.Extension.DependencyInjection.TypeDiscovererBase`1.DiscoverInternal(`0)">
+            <summary>
+            Convenience method by which type discoverers can be easily added
+            and/or run against a strongly typed instance of the container.
+            </summary>
+            <param name="container">
+            The inversion of control container instance against which the
+            type discoverers will be run.
+            </param>
+        </member>
+        <member name="T:NUnit.Extension.DependencyInjection.TypeDiscovererTypeValidator">
+            <summary>
+            Provides validation of type discoverer types.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extension.DependencyInjection.TypeDiscovererTypeValidator.AssertIsValidDiscovererType(System.Type)">
+            <summary>
+            Validates that the <paramref name="discovererType"/> is valid.
+            Or, in other words, that the following conditions are met:
+            <list type="bullet">
+            <item><paramref name="discovererType"/> is not null.</item>
+            <item>Type implements the <see cref="T:NUnit.Extension.DependencyInjection.ITypeDiscoverer"/> interface.</item>
+            <item>Type has a public no-args constructor.</item>
+            </list>
+            </summary>
+            <param name="discovererType">The type to be validated.</param>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown when <paramref name="discovererType"/> is null.
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            Thrown when <paramref name="discovererType"/> does not
+            implement <see cref="T:NUnit.Extension.DependencyInjection.ITypeDiscoverer"/>.
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            Thrown when <paramref name="discovererType"/> does not
+            have a public no-args constructor.
+            </exception>
+        </member>
+        <member name="T:NUnit.Extension.DependencyInjection.TypeDiscoveryException">
+            <summary>
+            Exception that is throw during failed type discovery.
+            </summary>
+        </member>
+        <member name="P:NUnit.Extension.DependencyInjection.TypeDiscoveryException.TypeDiscovererType">
+            <summary>
+            The type of the <see cref="T:NUnit.Extension.DependencyInjection.ITypeDiscoverer"/> that failed.
+            </summary>
+        </member>
+        <member name="M:NUnit.Extension.DependencyInjection.TypeDiscoveryException.#ctor(System.Type,System.Exception)">
+            <inheritdoc />
+            <summary>
+            Creates an instance of the exception that occurred while
+            processing an instance of <paramref name="erringTypeDiscovererType"/>
+            which resulted in the exception specified by <paramref name="innerException"/>.
+            </summary>
+        </member>
+    </members>
+</doc>

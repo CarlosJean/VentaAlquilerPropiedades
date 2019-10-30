@@ -26,15 +26,14 @@ namespace CompraPropiedades.Repositories
             return listadoProvincias;
         }
 
-        public IEnumerable<Sector> GetSectores(int idProvincia)
+        public Array GetSectores(int idProvincia)
         {
             var listadoSectores = (from s in this._db.Sectores
                                    join p in this._db.Provincias on s.IdProvincia equals p.IdProvincia
                                    where s.IdProvincia == idProvincia
-                                   select s/*new  Sector{ IdSector = s.IdSector, Descripcion = s.Descripcion,Provincia= p}*/).ToList();
+                                   select s/*new  Sector{ IdSector = s.IdSector, Descripcion = s.Descripcion,Provincia= p}*/).ToArray();
             return listadoSectores;
         }
-
 
     }
     }

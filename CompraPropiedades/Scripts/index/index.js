@@ -4,6 +4,7 @@ var slcPrecioDesde = $("#slcPrecioDesde");
 var slcPrecioHasta = $("#slcPrecioHasta");
 var slcProvincia   = $("#slcProvincia");
 var slcSector      = $("#slcSector");
+var btnBuscar      = $("#btnBuscar");
 
     //Declaración de funciones
 function cargarPrecios() {
@@ -79,4 +80,20 @@ slcProvincia.change(function () {
         }
 
     });
+});
+
+btnBuscar.on("click", function () {
+    $.ajax({
+        type: "POST",
+        url: "home/Casas",
+        success: function (res) {
+            console.log(res);
+        },
+        error: function (error,jqXHR) {
+            alert(jqXHR);
+        }
+
+
+    });
+
 });

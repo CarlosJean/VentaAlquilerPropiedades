@@ -9,5 +9,7 @@ namespace CompraPropiedades.Repositories
     public interface ISearchPropertiesService
     {
         Array GetPrecios();
+        Array GetProvincias();
+        Array GetSectores(int idProvincia);
     }
 }

@@ -11,7 +11,12 @@ namespace CompraPropiedades.Controllers
 {
     public class HomeController : Controller
     {
-        SearchProperties _searchProperties;
+        ISearchPropertiesService _searchProperties;
+
+        public  HomeController(ISearchPropertiesService searchPropertiesService) {
+
+            this._searchProperties = searchPropertiesService;
+        }
         public ActionResult Index()
         {
             return View();
@@ -32,7 +37,7 @@ namespace CompraPropiedades.Controllers
         }
 
 
-        public ViewResult Casas()
+        public ViewResult BuscarCasas()
         {
             return View();
         }
@@ -40,16 +45,16 @@ namespace CompraPropiedades.Controllers
 
             _searchProperties = new SearchProperties();
 
-            var jsonPrecio = JsonConvert.SerializeObject((_searchProperties.GetPrecios()));
+            var jsonPrecio = JsonConvert.SerializeObject((this._searchProperties.GetPrecios()));
             return Json(jsonPrecio);
         }
 
         public JsonResult Provincias()
         {
 
-            _searchProperties = new SearchProperties();
+           // _searchProperties = new SearchProperties();
 
-            var jsonProvincia = JsonConvert.SerializeObject((_searchProperties.GetProvincias()));
+            var jsonProvincia = JsonConvert.SerializeObject((this._searchProperties.GetProvincias()));
             return Json(jsonProvincia);
         }
 
@@ -57,10 +62,16 @@ namespace CompraPropiedades.Controllers
         {
 
             var idProvincia = int.Parse(Request.Form["idProvincia"]);
-            _searchProperties = new SearchProperties();
+            //_searchProperties = new SearchProperties();
 
-            var jsonSector = JsonConvert.SerializeObject((_searchProperties.GetSectores(idProvincia)));
+            var jsonSector = JsonConvert.SerializeObject((this._searchProperties.GetSectores(idProvincia)));
             return Json(jsonSector);
+        }
+
+        public ViewResult Casas() {
+
+
+            return View("Casas");
         }
     }
 }
