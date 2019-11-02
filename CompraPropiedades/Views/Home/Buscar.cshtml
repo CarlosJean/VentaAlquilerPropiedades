@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.Title = "Casas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Styles.Render("~/bundles/Buscar.css")
+
+<aside>
+    <div id="dvPropertiesCriteria">
+        <form onsubmit="return false" id="frmSearchProperties">
+            <div id="dvPublicationTypes" class="row"></div>
+            <div id="dvPropertyType" class="form-group">
+                @Html.Label("Tipo de propiedad", new { @for = "slcPropertyTypes" })
+                @Html.DropDownList("PropertyType",new List<SelectListItem>() { new SelectListItem() { Value="0", Text="Todos los tipos"} },new { @id="slcPropertyTypes",@class="form-control"})
+            </div>
+            <div id="dvPrice" class="form-group">
+                @Html.Label("Precio", new { @for = "slcPtopertyTypes" })
+                <div id="sliderPrice"></div>
+                <span id="spnPrice"></span>
+            </div>
+            <div id="dvUbication">
+                @Html.Label("Provincia", new { @for = "slcProvinces" })
+                @Html.DropDownList("Province", new List<SelectListItem>() { new SelectListItem() { Value = "0", Text = "Todos las provincias" } }, new { @id = "slcProvinces", @class = "form-control" })
+                @Html.Label("Sector", new { @for = "slcSectors" })
+                @Html.DropDownList("Sector", new List<SelectListItem>() { new SelectListItem() { Value = "0", Text = "Todos los sectores" } }, new { @id = "slcSectors", @class = "form-control" })
+            </div>
+        </form>
+    </div>
+</aside>
+@Scripts.Render("~/bundles/Buscar.js")

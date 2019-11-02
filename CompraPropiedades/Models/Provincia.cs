@@ -13,6 +13,7 @@ namespace CompraPropiedades.Models
         public string Descripcion { get; set; }
 
         public virtual ICollection<Sector> Sector { get; set; }
+        public virtual ICollection<Publication> Publication { get; set; }
 
     }
 }

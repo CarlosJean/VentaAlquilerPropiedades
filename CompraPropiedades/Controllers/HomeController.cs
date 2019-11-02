@@ -1,8 +1,11 @@
 ﻿using CompraPropiedades.Models;
 using CompraPropiedades.Repositories;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -35,9 +38,8 @@ namespace CompraPropiedades.Controllers
 
             return View();
         }
-
-
-        public ViewResult BuscarCasas()
+        
+        public ViewResult Buscar()
         {
             return View();
         }
@@ -51,18 +53,13 @@ namespace CompraPropiedades.Controllers
 
         public JsonResult Provincias()
         {
-
-           // _searchProperties = new SearchProperties();
-
             var jsonProvincia = JsonConvert.SerializeObject((this._searchProperties.GetProvincias()));
             return Json(jsonProvincia);
         }
 
         public JsonResult Sectores()
         {
-
             var idProvincia = int.Parse(Request.Form["idProvincia"]);
-            //_searchProperties = new SearchProperties();
 
             var jsonSector = JsonConvert.SerializeObject((this._searchProperties.GetSectores(idProvincia)));
             return Json(jsonSector);
@@ -72,6 +69,49 @@ namespace CompraPropiedades.Controllers
 
 
             return View("Casas");
+        }
+
+        public JsonResult PropertyTypes() {
+
+
+            var jsonPropertyTypes = JsonConvert.SerializeObject(this._searchProperties.GetPropertyTypes());
+            return Json(jsonPropertyTypes);
+            
+        }
+
+        public JsonResult PublicationTypes()
+        {
+
+            var publicationTypesList = JsonConvert.SerializeObject(this._searchProperties.GetPublicationTypes());
+
+            return Json(publicationTypesList);
+
+        }
+
+        public JsonResult Publications() {
+
+            var province = int.Parse(Request.Form["Province"]);
+            float[] price = new float[2];
+            var arrayPrice = (JArray)JsonConvert.DeserializeObject(Request.Form["Price"]);
+            price[0] = float.Parse(arrayPrice[0].ToString());
+            price[1] = float.Parse(arrayPrice[1].ToString());
+
+
+            var propertyType           = int.Parse(Request.Form["PropertyType"]);
+            List<int> publicationTypes = new List<int>();
+
+            var arraypublicationTypes = (JArray)JsonConvert.DeserializeObject(Request.Form["PublicationTypes"]);
+
+            for (var index=0; index<arraypublicationTypes.Count(); index++) {
+                publicationTypes.Add(int.Parse(arraypublicationTypes[index].ToString()));
+            }
+
+            var sector          = int.Parse(Request.Form["Sector"]);
+
+            var publicationsList = JsonConvert.SerializeObject(
+                this._searchProperties.GetPublications(price, propertyType, publicationTypes, province, sector));
+            return Json(publicationsList);
+        
         }
     }
 }

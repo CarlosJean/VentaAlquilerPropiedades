@@ -14,9 +14,15 @@ namespace CompraPropiedades
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                name: "casas",
-                url: "casas",
+                name: "Casas",
+                url: "Casas",
                 defaults: new { controller = "Home", action = "Casas", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "Buscar",
+                url: "Buscar",
+                defaults: new { controller = "Home", action = "Buscar", id = UrlParameter.Optional }
             );
 
             routes.MapRoute(

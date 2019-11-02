@@ -15,5 +15,8 @@ namespace CompraPropiedades.Models
         public int IdProvincia { get; set; }
         [JsonIgnore]
         public virtual Provincia Provincia { get; set; }
+
+        public virtual ICollection<Publication> Publication { get; set; }
+
     }
 }

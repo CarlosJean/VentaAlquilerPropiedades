@@ -35,5 +35,36 @@ namespace CompraPropiedades.Repositories
             return listadoSectores;
         }
 
+
+        public Array GetPropertyTypes() {
+
+            var propertyTypeList = (from PT in this._db.PropertyType
+                                   select PT).ToArray();
+
+            return propertyTypeList;
+        }
+
+        public Array GetPublicationTypes()
+        {
+
+            var publicationTypesList = (from PT in this._db.PublicationType
+                                        select PT).ToArray();
+
+            return publicationTypesList;
+        }
+
+        public Array GetPublications(float[] price, int propertyType, List<int> publicationTypes, int province, int sector)
+        {
+
+            var priceFrom = price[0];
+            var priceTo   = price[1];
+
+            var publicationTypesList = (from P in this._db.Publication
+                                        where P.Price >= priceFrom && P.Price <= priceTo && P.PropertyType.IdPropertyType == propertyType && 
+                                        publicationTypes.Contains(P.PublicationType.IdPublicationType) && P.IdProvince == province && P.IdSector == sector
+                                        select P).ToArray();
+
+            return publicationTypesList;
+        }
     }
     }

@@ -62,9 +62,11 @@ slcPrecioDesde.change(function () {
 
 slcProvincia.change(function () {
     var selectedValue = parseInt($("#slcProvincia option:selected").val());
+
+   
     $.ajax({
         type: "Post",
-        url: "home/Sectores",
+        url: "/home/Sectores",
         data: { idProvincia: selectedValue },
         success: function (res) {
             var json = JSON.parse(res);
@@ -85,7 +87,7 @@ slcProvincia.change(function () {
 btnBuscar.on("click", function () {
     $.ajax({
         type: "POST",
-        url: "home/Casas",
+        url: "/home/Casas",
         success: function (res) {
             console.log(res);
         },

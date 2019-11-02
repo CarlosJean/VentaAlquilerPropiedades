@@ -18,6 +18,8 @@ namespace CompraPropiedades.Models
         public string Phone { get; set; }
         public string Address { get; set; }
 
+        public DateTime RegistrationDate { get; set; }
+
         [JsonIgnore]
         public virtual ICollection<Publication> Publications { get; set; }
 

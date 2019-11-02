@@ -236,6 +236,7 @@
     <Compile Include="Models\Provincia.cs" />
     <Compile Include="Models\Publication.cs" />
     <Compile Include="Models\PublicationImage.cs" />
+    <Compile Include="Models\PublicationType.cs" />
     <Compile Include="Models\Sector.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\VentaPropiedadesContext.cs" />
@@ -251,6 +252,7 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Buscar\Buscar.css" />
     <Content Include="Content\index\index.css" />
     <Content Include="Content\materialize\css\materialize.css" />
     <Content Include="Content\materialize\css\materialize.min.css" />
@@ -311,6 +313,7 @@
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\Buscar\Buscar.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
@@ -338,6 +341,7 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
+    <Content Include="Scripts\jquery_ui_punch_touch.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -377,8 +381,8 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
-    <Content Include="Views\Home\BuscarCasas.cshtml" />
-    <Content Include="Views\Home\_BuscarPropiedades.cshtml" />
+    <Content Include="Views\Home\Buscar.cshtml" />
+    <Content Include="Views\Shared\_SearchProperties.cshtml" />
     <Content Include="Views\Home\Apartamento.cshtml" />
     <Content Include="Views\Home\Casas.cshtml" />
   </ItemGroup>
