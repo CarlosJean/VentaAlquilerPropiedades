@@ -14,11 +14,13 @@ namespace CompraPropiedades.Models
 
         public int IdPublication { get; set; }
 
-        public Publication Publication { get; set; }
 
         public string Image { get; set; }
         public DateTime Date { get; set; }
 
-        public string Status { get; set; }
+        [JsonIgnore]
+        public Publication Publication { get; set; }
+
+        //public string Status { get; set; }
     }
 }

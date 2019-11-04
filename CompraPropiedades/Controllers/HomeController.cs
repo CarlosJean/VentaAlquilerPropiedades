@@ -92,15 +92,25 @@ namespace CompraPropiedades.Controllers
 
             var province = int.Parse(Request.Form["Province"]);
             float[] price = new float[2];
-            var arrayPrice = (JArray)JsonConvert.DeserializeObject(Request.Form["Price"]);
-            price[0] = float.Parse(arrayPrice[0].ToString());
-            price[1] = float.Parse(arrayPrice[1].ToString());
+
+            // float[] arrayPrice = new float[2];
+            //var arrayPrice = new string[2];
+            //if (Request.Form["Price"] != null){
+                var arrayPrice = (JArray)JsonConvert.DeserializeObject(Request.Form["Price"]);
+                price[0] = float.Parse(arrayPrice[0].ToString());
+                price[1] = float.Parse(arrayPrice[1].ToString());
+            //}
+            
 
 
             var propertyType           = int.Parse(Request.Form["PropertyType"]);
             List<int> publicationTypes = new List<int>();
 
-            var arraypublicationTypes = (JArray)JsonConvert.DeserializeObject(Request.Form["PublicationTypes"]);
+            var arraypublicationTypes = new JArray();
+            if (Request.Form["PublicationTypes"] != null) {
+                arraypublicationTypes = (JArray)JsonConvert.DeserializeObject(Request.Form["PublicationTypes"]);
+            }
+            
 
             for (var index=0; index<arraypublicationTypes.Count(); index++) {
                 publicationTypes.Add(int.Parse(arraypublicationTypes[index].ToString()));

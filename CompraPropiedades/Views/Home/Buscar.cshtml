@@ -5,7 +5,7 @@
 }
 @Styles.Render("~/bundles/Buscar.css")
 
-<aside>
+<aside class="col-sm-2">
     <div id="dvPropertiesCriteria">
         <form onsubmit="return false" id="frmSearchProperties">
             <div id="dvPublicationTypes" class="row"></div>
@@ -27,4 +27,8 @@
         </form>
     </div>
 </aside>
+<section class="col-sm-10">
+    <div id="secPublications" class="row"></div>
+</section>
+
 @Scripts.Render("~/bundles/Buscar.js")

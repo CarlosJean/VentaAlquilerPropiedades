@@ -20,6 +20,7 @@ namespace CompraPropiedades.Models
         public DbSet<User> User { get; set; }
         public DbSet<PropertyType> PropertyType { get; set; }
         public DbSet<Publication> Publication { get; set; }
+        public DbSet<PublicationImage> PublicationImage { get; set; }
         public DbSet<PublicationType> PublicationType { get; set; }
 
 

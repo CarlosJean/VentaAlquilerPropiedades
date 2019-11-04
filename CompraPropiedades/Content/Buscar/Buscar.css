@@ -1,15 +1,18 @@
 ﻿
 aside {
-    width: 20%;
+    /*width: 20%;*/
     color: white;
-    padding: 20px;
+    /*padding: 20px;*/
     background-color: #7688a3f5;
+    padding-left: 35px;
     /*filter: blur(5px);*/
 }
 
 #dvPropertiesCriteria {
     width: 100%;
+    padding: 15px;
 }
+
 
 #spnPrice {
 
@@ -26,4 +29,24 @@ aside {
 
 #btnSearchProperties {
     margin-left: 35%;
+}
+
+
+#dvPublicationImage img {
+    width: 100%;
+    /*margin-top: 3px;*/
+}
+
+.dvPublication {
+    margin: 12px;
+    box-shadow: 0px 0px 4px 1px;
+    margin-top: 15px;
+    padding: 3px;
+    max-height: 210px;
+    cursor: pointer;
+}
+
+.dvPublicationDetails {
+    text-align:center;
+    
 }

@@ -8,8 +8,7 @@ var slcPropertyTypes = $("#slcPropertyTypes");
 var slcSectors       = $("#slcSectors");
 var slcProvinces     = $("#slcProvinces");
 var dvPublicationTypes = $("#dvPublicationTypes");
-//var chkPublicationTypes = $("<input/>", {type:'checkbox', name:'PublicationTypes'});
-//var chkPublicationTypes2 = $("<input/>", {type:'checkbox', name:'PublicationTypes'});
+var secPublications = $("#secPublications");
 
 
 //Declarar las funciones
@@ -69,18 +68,22 @@ function GetPublicationTypes() {
     $.ajax({
         type: "POST",
         url: "/home/PublicationTypes",
+        async: false,
         success: function (res) {
+            console.log(res);
             var json = JSON.parse(res);
             //console.log(json);
             //dvPublicationTypes.append(chkPublicationTypes2);
             json.forEach(function (publicationType) {
 
                 var chkPublicationTypes = $("<input/>", {
-                                                            type: 'checkbox', name: 'PublicationTypes',
-                                                            id: "chkPropertyType" + publicationType.IdPublicationType,
-                                                            value: publicationType.IdPublicationType
+                    type: 'checkbox', name: 'PublicationTypes',
+                    id: "chkPropertyType" + publicationType.IdPublicationType,
+                    value: publicationType.IdPublicationType,
+                    class: "chkPropertyType"
                 });
 
+                //console.log(chkPublicationTypes);
                 var labelPropertyType = $("<label>", {
                     for: "chkPropertyType" + publicationType.IdPublicationType, class: "col-sm-6",
                     text: publicationType.Description
@@ -93,18 +96,28 @@ function GetPublicationTypes() {
         error: function (settings, jqxhr) {
             alert(jqxhr);
         }
+    }).done(function (res) {
+
+        
     });
 }
 function GetPublications() {
 
-    var price = JSON.stringify([500000,1000000]);
+    //console.log(sliderPrice);
+    var price = JSON.stringify([fromPrice, toPrice]);
 
-    var propertyType = 1;
-    var publicationTypes = JSON.stringify([1, 2]);
-    var province         = 1;
-    var sector = 1
+    var propertyType = parseInt($("#slcPropertyTypes option:selected").val());
+    var selectedPublicationTypes = $("input[type=checkbox]:checked");
 
-    console.log(price);
+    var publicationTypes = [];
+    selectedPublicationTypes.each(function () {
+        publicationTypes.push(this.value);
+    });
+    publicationTypes = JSON.stringify(publicationTypes);
+    var province =  parseInt($("#slcProvinces option:selected").val());
+    var sector   =  parseInt($("#slcSectors option:selected").val());
+     
+    //console.log(price);
 
     $.ajax({
         type: "POST",
@@ -112,7 +125,22 @@ function GetPublications() {
         data: { Price: price, PropertyType: propertyType, PublicationTypes: publicationTypes, 
                 Province: province, Sector: sector },
         success: function (res) {
-            console.log(res);
+            var json = JSON.parse(res);
+            secPublications.empty();
+            json.forEach(function (publication) {
+                var div = `<div class='col-sm-2 dvPublication'>
+                                <div id='dvPublicationImage' >
+                                    <image src= ${publication.PublicationImage[0].Image}/>
+                                </div>
+                                <div class="dvPublicationDetails">
+                                    <p><strong>${publication.Title}</strong></p>
+                                    <p>RD$ ${publication.Price}</p>
+                                </div>
+                           </div>`
+
+            secPublications.append(div);
+            });
+            console.log(json);
         },
         error: function (settings, jqXHR) {
             alert(jqXHR);
@@ -124,9 +152,9 @@ function GetPublications() {
 GetPublicationTypes();
 GetPropertyTypes();
 GetProvinces();
-GetPublications();
 
 spnPrice.text("$" + fromPrice + " - $" + toPrice);
+
 
 //Manejar los eventos
 sliderPrice.slider({
@@ -137,11 +165,19 @@ sliderPrice.slider({
     step: 100,
     values: [500000, 10000000],
     slide: function (event, ui) {
-        fromPrice = formatMoney(ui.values[0], 2, '.', ',');
-        toPrice = formatMoney(ui.values[1], 2, '.', ',');
-        spnPrice.text("$" + fromPrice + " - $" + toPrice);
+        fromPrice = ui.values[0];
+        toPrice   = ui.values[1];
+
+        fromPriceFormatted = formatMoney(fromPrice, 2, '.', ',');
+        toPriceFormatted   = formatMoney(toPrice, 2, '.', ',');
+
+
+        spnPrice.text("$" + fromPriceFormatted + " - $" + toPriceFormatted);
     }
-});
+})
+sliderPrice.mouseup(function (event ) {
+    GetPublications();
+    });
 slcProvinces.change(function () {
     var selectedValue = parseInt($("#slcProvinces option:selected").val());
     $.ajax({
@@ -163,3 +199,10 @@ slcProvinces.change(function () {
 
     });
 });
+$(".chkPropertyType").change(function () {
+    //console.log("ok");
+    GetPublications();
+});
+$("select").on('change', function () {
+    GetPublications();
+})

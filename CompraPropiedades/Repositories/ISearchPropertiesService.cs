@@ -13,6 +13,6 @@ namespace CompraPropiedades.Repositories
         Array GetSectores(int idProvincia);
         Array GetPropertyTypes();
         Array GetPublicationTypes();
-        Array GetPublications(float[] price, int propertyType, List<int> publicationTypes, int province, int sector);
+        Array GetPublications(float[] price , int propertyType, List<int> publicationTypes, int province, int sector);
     }
 }
