@@ -6,10 +6,10 @@ using System.Web;
 
 namespace CompraPropiedades.Models
 {
-    public class Precio
+    public class Price
     {
         [Key]
-        public int IdPrecio { get; set; }
-        public string Descripcion { get; set; }
+        public int IdPrice { get; set; }
+        public string Description { get; set; }
     }
 }

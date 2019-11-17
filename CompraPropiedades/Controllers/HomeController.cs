@@ -90,7 +90,7 @@ namespace CompraPropiedades.Controllers
 
         public JsonResult Publications() {
 
-            var province = int.Parse(Request.Form["Province"]);
+            //var province = int.Parse(Request.Form["Province"]);
             float[] price = new float[2];
 
             // float[] arrayPrice = new float[2];
@@ -118,8 +118,12 @@ namespace CompraPropiedades.Controllers
 
             var sector          = int.Parse(Request.Form["Sector"]);
 
+            var rownumberFrom = int.Parse(Request.Form["rownumberFrom"]);
+            var rownumberTo   = int.Parse(Request.Form["rownumberTo"]);
+
             var publicationsList = JsonConvert.SerializeObject(
-                this._searchProperties.GetPublications(price, propertyType, publicationTypes, province, sector));
+                this._searchProperties.GetPublications(price, propertyType, publicationTypes, rownumberFrom, rownumberTo,/*province,*/ sector));
+
             return Json(publicationsList);
         
         }

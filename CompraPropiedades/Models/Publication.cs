@@ -17,8 +17,9 @@ namespace CompraPropiedades.Models
         public DateTime PublicationDate { get; set; }
         public int IdUser { get; set; }
         public string Ubication { get; set; }
-        public int IdProvince { get; set; }
-        [ForeignKey("Sector")]
+        //[ForeignKey("Province")]
+        //public int IdProvince { get; set; }
+        //[ForeignKey("Sector")]
         public int IdSector { get; set; }
         public string UbicationCoordinates { get; set; }
         public int IdPropertyType { get; set; }
@@ -35,10 +36,10 @@ namespace CompraPropiedades.Models
 
         [JsonIgnore]
         public virtual PublicationType PublicationType { get; set; }
+        //[JsonIgnore]
+        //public virtual Province Province { get; set; }
         [JsonIgnore]
-        public virtual Provincia Province { get; set; }
-        [JsonIgnore]
-        public virtual Sector   Sector { get; set; }
+        public virtual Sector  Sector { get; set; }
 
 
     }

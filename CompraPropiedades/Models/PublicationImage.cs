@@ -13,8 +13,6 @@ namespace CompraPropiedades.Models
         public int IdPublicationImage { get; set; }
 
         public int IdPublication { get; set; }
-
-
         public string Image { get; set; }
         public DateTime Date { get; set; }
 

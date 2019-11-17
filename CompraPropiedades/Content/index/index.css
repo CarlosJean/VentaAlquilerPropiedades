@@ -1,8 +1,4 @@
 ﻿
-/*#boton-disminuir, #boton-aumentar {
-    width: fit-content;
-}*/
-
 #slider-precio {
     margin-left: 15px;
     margin-right: 15px;
@@ -34,16 +30,6 @@
     background-color:white;
 }
 
-/*#slcPrecioDesde, #slcPrecioHasta {
-    width: 46%;
-    margin-left: 10px;
-}*/
-
-/*#dvPrecio {
-    display:inline-flex;
-    width:100%;
-}*/
-
 #lblPrecioHasta {
     margin-left: 10px;
 }
@@ -51,10 +37,9 @@
 body {
     background-image: url('../../Assets/casa.png');
     background-size: cover;
-    /*filter: blur(8px);
-    -webkit-filter: blur(8px);*/
 }
 
 #btnBuscar {
     margin-top: 10px;
 }
+

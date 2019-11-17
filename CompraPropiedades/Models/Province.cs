@@ -6,11 +6,11 @@ using System.Web;
 
 namespace CompraPropiedades.Models
 {
-    public class Provincia
+    public class Province
     {
         [Key]
-        public int IdProvincia { get; set; }
-        public string Descripcion { get; set; }
+        public int IdProvince { get; set; }
+        public string Description { get; set; }
 
         public virtual ICollection<Sector> Sector { get; set; }
         public virtual ICollection<Publication> Publication { get; set; }

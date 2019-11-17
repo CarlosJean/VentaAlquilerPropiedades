@@ -50,3 +50,12 @@ aside {
     text-align:center;
     
 }
+
+ul.pagination {
+    cursor:pointer;
+}
+
+.page-item active {
+
+    background-color: blue;
+}

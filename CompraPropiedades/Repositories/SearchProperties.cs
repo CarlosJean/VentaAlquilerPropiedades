@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -18,20 +17,20 @@ namespace CompraPropiedades.Repositories
 
         public Array GetPrecios()
         {
-                var listadoPrecios = this._db.Precios.ToArray();
+                var listadoPrecios = this._db.Price.ToArray();
                 return listadoPrecios;
         }
 
         public Array GetProvincias() {
-            var listadoProvincias = this._db.Provincias.ToArray();
+            var listadoProvincias = this._db.Province.ToArray();
             return listadoProvincias;
         }
 
         public Array GetSectores(int idProvincia)
         {
-            var listadoSectores = (from s in this._db.Sectores
-                                   join p in this._db.Provincias on s.IdProvincia equals p.IdProvincia
-                                   where s.IdProvincia == idProvincia
+            var listadoSectores = (from s in this._db.Sector
+                                   join p in this._db.Province on s.IdProvince equals p.IdProvince
+                                   where s.IdProvince == idProvincia
                                    select s/*new  Sector{ IdSector = s.IdSector, Descripcion = s.Descripcion,Provincia= p}*/).ToArray();
             return listadoSectores;
         }
@@ -54,42 +53,39 @@ namespace CompraPropiedades.Repositories
             return publicationTypesList;
         }
 
-        public Array GetPublications(float[] price, int propertyType, List<int> publicationTypes, int province = 0, int sector = 0)
+        public Array GetPublications(float[] price, int propertyType, List<int> publicationTypes, int rownumberFrom, int rownumberTo, /*int province = 0,*/ int sector = 0)
         {
 
             var priceFrom = price[0];
             var priceTo   = price[1];
+            var rowNumber = 1;
 
-            IEnumerable publicationTypesList = new IEnumerable();
+            var p1 = (from P in this._db.Publication
+                                       // join PR in this._db.Province on P.IdProvince equals PR.IdProvince
+                                       // join S  in this._db.Sectors   on PR.IdProvince equals S.IdProvince
+                                        where P.Price >= priceFrom && P.Price <= priceTo && P.PropertyType.IdPropertyType == propertyType && 
+                                        publicationTypes.Contains(P.PublicationType.IdPublicationType) /*&& P.IdProvince == province*/ && P.IdSector == sector
+                                        
+            
+                      select new { P.IdPublication, P.Title, PublicationDescription = P.Description,
+                                            Image= (from PI1 in this._db.PublicationImage
+                                             where PI1.IdPublication == P.IdPublication
+                                             select new { PI1.Image}
+                                             ).Take(1)/*,Province=PR.Description, Sector = S.Description*/, PropertyPrice = P.Price}).ToList();
 
-            if (propertyType == null) {
-                publicationTypesList = (from P in this._db.Publication
-                                        join PR in this._db.Provincias on P.IdProvince equals PR.IdProvincia
-                                        join S in this._db.Sectores on PR.IdProvincia equals S.IdProvincia
-                                        where P.Price >= priceFrom && P.Price <= priceTo && P.PropertyType.IdPropertyType == propertyType &&
-                                        publicationTypes.Contains(P.PublicationType.IdPublicationType) && P.IdProvince == province && P.IdSector == sector
-                                        select new
-                                        {
-                                            P.IdPublication,
-                                            P.Title,
-                                            PublicationDescription = P.Description,
-                                            PublicationImage = (from PI1 in this._db.PublicationImage
-                                                                where PI1.IdPublication == P.IdPublication
-                                                                select new { PI1.Image }
-                                             ).Take(1),
-                                            Province = PR.Descripcion,
-                                            Sector = S.Descripcion,
-                                            P.Price
-                                        })/*.ToArray()*/;
-            }
-            elseif()
-                {
+            var p2 = (from PL
+                    in p1
+                      select new { PL.IdPublication, PL.Title, PL.PublicationDescription, PL.Image, PL.PropertyPrice, RowNumber = rowNumber++ }).ToArray();
 
-                }
 
-             
+            
+            var publicationsList = (from PL
+                                in p2
+                                where PL.RowNumber >= rownumberFrom && PL.RowNumber <= rownumberTo
+                                    select p2
+                                ).ToArray();
 
-            return publicationTypesList;
+            return publicationsList;
         }
     }
     }

@@ -11,10 +11,11 @@ namespace CompraPropiedades.Models
     {
         [Key]
         public int IdSector { get; set; }
-        public string Descripcion { get; set; }
-        public int IdProvincia { get; set; }
+        public string Description { get; set; }
+        public int IdProvince { get; set; }
+
         [JsonIgnore]
-        public virtual Provincia Provincia { get; set; }
+        public virtual Province Province { get; set; }
 
         public virtual ICollection<Publication> Publication { get; set; }
 
