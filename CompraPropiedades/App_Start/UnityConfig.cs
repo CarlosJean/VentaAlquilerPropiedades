@@ -40,6 +40,7 @@ namespace CompraPropiedades
         {
 
             container.RegisterType<ISearchPropertiesService, SearchProperties>();
+            container.RegisterType<IPublicationService, PublicationService>();
             // NOTE: To load from web.config uncomment the line below.
             // Make sure to add a Unity.Configuration to the using statements.
             // container.LoadConfiguration();

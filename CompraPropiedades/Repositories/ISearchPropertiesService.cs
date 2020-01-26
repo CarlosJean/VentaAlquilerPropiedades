@@ -1,4 +1,5 @@
 ﻿using CompraPropiedades.Models;
+using CompraPropiedades.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace CompraPropiedades.Repositories
         Array GetPropertyTypes();
         Array GetPublicationTypes();
         Array GetPublications(float[] price , int propertyType, List<int> publicationTypes, int rownumberFrom, int rownumberTo, /*int province,*/ int sector);
+        PublicationViewModel GetPublicationDetail(int idPublication);
 
     }
 }

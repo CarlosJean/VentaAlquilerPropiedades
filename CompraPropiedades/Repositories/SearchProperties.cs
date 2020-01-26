@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using CompraPropiedades.Models;
+using CompraPropiedades.ViewModels;
 
 namespace CompraPropiedades.Repositories
 {
@@ -87,5 +88,37 @@ namespace CompraPropiedades.Repositories
 
             return publicationsList;
         }
+
+        public PublicationViewModel GetPublicationDetail(int idPublication) {
+
+            //PublicationImage publicationImage = new PublicationImage();
+
+            var publication = (from P in this._db.Publication
+                               join PI in _db.PublicationImage on P.IdPublication equals PI.IdPublication
+                               join U in _db.User on P.IdUser equals U.IdUser
+                               where P.IdPublication == idPublication
+                               select new { P.IdPublication, P.Title, P.Description, P.Price, Username = U.Name + " " + U.LastName, PI.Image }
+                               );
+
+
+            PublicationViewModel publicationViewModel = new PublicationViewModel();
+
+            publicationViewModel.IdPublication = publication.FirstOrDefault().IdPublication;
+            publicationViewModel.Title         = publication.FirstOrDefault().Title;
+
+            List<string> imageList = new List<string>();
+            foreach (var publicationImages in publication.Select(pi => pi.Image)) {
+                imageList.Add(publicationImages.ToString());
+            }
+
+            publicationViewModel.Images      = imageList;
+            publicationViewModel.Description = publication.FirstOrDefault().Description;
+            publicationViewModel.Price       = publication.FirstOrDefault().Price;
+            publicationViewModel.Username    = publication.FirstOrDefault().Username;
+
+
+            return publicationViewModel;
+        }
+      
     }
     }

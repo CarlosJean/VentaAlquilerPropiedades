@@ -26,6 +26,30 @@ namespace CompraPropiedades
             );
 
             routes.MapRoute(
+                name: "Detalle",
+                url: "Detalle",
+                defaults: new { controller = "Home", action = "Detalle", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "Publication",
+                url: "Publicacion",
+                defaults: new { controller = "Home", action = "Publication", idPublicacion = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "Publicar",
+                url: "Publicar",
+                defaults: new { controller = "Post", action = "Index", idPublicacion = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "Publicar_2",
+                url: "Post",
+                defaults: new { controller = "Post", action = "Index", idPublicacion = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }

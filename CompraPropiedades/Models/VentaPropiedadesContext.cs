@@ -13,7 +13,7 @@ namespace CompraPropiedades.Models
             {
 
         }
-
+        public DbSet<Acommodation> Accomodation { get; set; }
         public DbSet<Price> Price { get; set; }
         public DbSet<Province> Province { get; set; }
         public DbSet<Sector> Sector { get; set; }
@@ -22,6 +22,7 @@ namespace CompraPropiedades.Models
         public DbSet<Publication> Publication { get; set; }
         public DbSet<PublicationImage> PublicationImage { get; set; }
         public DbSet<PublicationType> PublicationType { get; set; }
+        public DbSet<PublicationAcommodation> PublicationAccomodation { get; set; }
 
 
     }

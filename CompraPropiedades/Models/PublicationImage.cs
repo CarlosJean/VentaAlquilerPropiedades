@@ -17,8 +17,6 @@ namespace CompraPropiedades.Models
         public DateTime Date { get; set; }
 
         [JsonIgnore]
-        public Publication Publication { get; set; }
-
-        //public string Status { get; set; }
+        public virtual List<Publication> Publication { get; set; }
     }
 }

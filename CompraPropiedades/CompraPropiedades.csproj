@@ -227,22 +227,29 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Acommodation.cs" />
     <Compile Include="Models\Price.cs" />
     <Compile Include="Models\PropertyType.cs" />
     <Compile Include="Models\Province.cs" />
     <Compile Include="Models\Publication.cs" />
+    <Compile Include="Models\PublicationAcommodation.cs" />
     <Compile Include="Models\PublicationImage.cs" />
     <Compile Include="Models\PublicationType.cs" />
     <Compile Include="Models\Sector.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\VentaPropiedadesContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\IPublicationService.cs" />
+    <Compile Include="Repositories\PublicationService.cs" />
     <Compile Include="Repositories\SearchProperties.cs" />
     <Compile Include="Repositories\ISearchPropertiesService.cs" />
+    <Compile Include="ViewModels\PostViewModel.cs" />
+    <Compile Include="ViewModels\PublicationViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\casa.png" />
@@ -254,9 +261,13 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Buscar\Buscar.css" />
+    <Content Include="Content\Detail\Detail.css" />
     <Content Include="Content\index\index.css" />
     <Content Include="Content\materialize\css\materialize.css" />
     <Content Include="Content\materialize\css\materialize.min.css" />
+    <Content Include="Content\Post\Post.css" />
+    <Content Include="Content\Post\SavedPost.css" />
+    <Content Include="Content\Publication\Publication.css" />
     <Content Include="Content\Styles.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
@@ -356,6 +367,8 @@
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
     <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\Post\Post.js" />
+    <Content Include="Scripts\Publication\Publication.js" />
     <Content Include="Scripts\umd\popper-utils.js" />
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
@@ -387,6 +400,10 @@
     <Content Include="Views\Shared\_SearchProperties.cshtml" />
     <Content Include="Views\Home\Apartamento.cshtml" />
     <Content Include="Views\Home\Casas.cshtml" />
+    <Content Include="Views\Home\Publication.cshtml" />
+    <Content Include="Views\Home\Detail.cshtml" />
+    <Content Include="Views\Post\Post.cshtml" />
+    <Content Include="Views\Post\SavedPost.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -32,7 +32,7 @@ namespace CompraPropiedades.Models
         public virtual PropertyType PropertyType { get; set; }
 
         [JsonIgnore]
-        public ICollection<PublicationImage> PublicationImage { get; set; }
+        public virtual ICollection<PublicationImage> PublicationImage { get; set; }
 
         [JsonIgnore]
         public virtual PublicationType PublicationType { get; set; }
@@ -40,6 +40,9 @@ namespace CompraPropiedades.Models
         //public virtual Province Province { get; set; }
         [JsonIgnore]
         public virtual Sector  Sector { get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<PublicationAcommodation> PublicationAcommodations { get; set; }
 
 
     }

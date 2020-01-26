@@ -22,7 +22,13 @@ namespace CompraPropiedades
             
             bundles.Add(new ScriptBundle("~/bundles/Buscar.js").Include(
                         "~/Scripts/Buscar/Buscar.js"));
-                       
+            
+            bundles.Add(new ScriptBundle("~/bundles/Publication.js").Include(
+                        "~/Scripts/Publication/Publication.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/Post.js").Include(
+                        "~/Scripts/Post/Post.js"));
+
             //Estilos
             bundles.Add(new StyleBundle("~/bundles/bootstrap.min.css").Include(
                         "~/Content/bootstrap.min.css"));
@@ -35,6 +41,18 @@ namespace CompraPropiedades
             
             bundles.Add(new StyleBundle("~/bundles/Styles.css").Include(
                         "~/Content/Styles.css"));
+            
+            bundles.Add(new StyleBundle("~/bundles/Publication.css").Include(
+                        "~/Content/Publication/Publication.css"));
+
+            bundles.Add(new StyleBundle("~/bundles/Detail.css").Include(
+                        "~/Content/Detail/Detail.css"));
+
+            bundles.Add(new StyleBundle("~/bundles/Post.css").Include(
+                        "~/Content/Post/Post.css"));
+
+            bundles.Add(new StyleBundle("~/bundles/SavedPost.css").Include(
+                        "~/Content/Post/SavedPost.css"));
 
             // Utilice la versión de desarrollo de Modernizr para desarrollar y obtener información. De este modo, estará
             // para la producción, use la herramienta de compilación disponible en https://modernizr.com para seleccionar solo las pruebas que necesite.

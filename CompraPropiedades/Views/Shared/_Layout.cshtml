@@ -13,6 +13,7 @@
     @Styles.Render("~/bundles/jquery-ui.min.css")
     @Scripts.Render("~/bundles/jqueryui")
     @Scripts.Render("~/bundles/jquery_ui_touch_punch")
+    @Scripts.Render("~/bundles/bootstrap")
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -30,15 +31,14 @@
             </div>
         </div>
     </nav>
-    <article class="row">
+    <article>
         @RenderBody()
     </article>
     <hr />
     <footer>
         <p>&copy; @DateTime.Now.Year - Mi aplicación ASP.NET</p>
     </footer>
-    
-    @Scripts.Render("~/bundles/bootstrap")
+
     <script src="~/Scripts/layout.js"></script>
     @RenderSection("scripts", required: false)
 </body>

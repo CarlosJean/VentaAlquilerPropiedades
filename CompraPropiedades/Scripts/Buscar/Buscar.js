@@ -1,8 +1,8 @@
 ﻿//Declarar las variables
-var sliderPrice      = $("#sliderPrice");
-var spnPrice         =  $("#spnPrice");
-var fromPrice        = 500000
-var toPrice          = 10000000
+var sliderPrice         = $("#sliderPrice");
+var spnPrice            = $("#spnPrice");
+var fromPrice           = 500000
+var toPrice             = 10000000
 var slcPropertyTypes    = $("#slcPropertyTypes");
 var slcSectors          = $("#slcSectors");
 var slcProvinces        = $("#slcProvinces");
@@ -11,7 +11,8 @@ var secPublications     = $("#secPublications");
 var publicationsPerPage = 36
 var ulPagination        = $(".pagination");
 var paginationBar       = $("#paginationBar");
-var numberPages = 0;
+var numberPages         = 0;
+var dvPublication       = $("#secPublications");
 
 
 //Declarar las funciones
@@ -42,10 +43,10 @@ function LoadPaginationBar(currentPageNumber = 1) {
         //Añadir el botón de 'anterior'.
         if (currentPageNumber == 1) {
             var li = $("<li/>", { class: "page-item disabled", id: 'li_previous' });
-            var a = $("<a/>", { class: "page-link", text: '<<', href: "#" });
+            var a = $("<a/>", { class: "page-link", text: '<<'/*, href: "#"*/ });
         } else {
             var li = $("<li/>", { class: "page-item", id: 'li_previous' });
-            var a = $("<a/>", { class: "page-link", text: '<<', href: "#" });
+            var a = $("<a/>", { class: "page-link", text: '<<'/*, href: "#"*/ });
         }
 
         AppendElement(li, a);
@@ -93,10 +94,10 @@ function LoadPaginationBar(currentPageNumber = 1) {
         for (var index = 1; index <= numberPages; index++) {
                 if (index != currentPageNumber) {
                     li = $("<li/>", { class: "page-item", id: `li_${index}` });
-                    a = $("<a/>", { class: "page-link", text: index, href: "#" });
+                    a = $("<a/>", { class: "page-link", text: index/*, href: "#"*/ });
                 } else {
                     li = $("<li/>", { class: "page-item active", id: `li_${index}` });
-                    a = $("<a/>", { class: "page-link", text: index, href: "#" });
+                    a = $("<a/>", { class: "page-link", text: index/*, href: "#" */});
                 }           
             li.append(a);
             ulPagination.append(li);
@@ -116,14 +117,15 @@ function LoadPaginationBar(currentPageNumber = 1) {
     }
 }
 function LoadPublications(jsonPublications) {
+    console.log(jsonPublications);
     secPublications.empty();
     jsonPublications.forEach(function (publication, index) {
         var image = '';
         if (publication[index].Image.length > 0) {
-            image = `<image src= ${publication[index].Image[0]} />`;
+            image = `<image src= ${publication[index].Image[0]["Image"]} />`;
         }
 
-        var divPublication = `<div class='col-sm-2 dvPublication'>
+        var divPublication = `<div class='col-sm-2 dvPublication' id=${publication[index].IdPublication}>
                                 <div id='dvPublicationImage' >
                                    ${image}
                                 </div>
@@ -356,4 +358,21 @@ ulPagination.on('click', 'li', function () {
         GetPublications(rownumberFrom, rownumberTo, currentPageNumber);
     }
      
+});
+
+dvPublication.on("click", ".dvPublication", function () {
+
+    //console.log("Detalle?id=" + $(this).attr("id"));
+    window.location.href = "Detalle?id=" + $(this).attr("id");
+    //$.ajax({
+    //    type:"POST",
+    //    url: "Detalle",
+    //    success: function (res) {
+    //        console.log(res);
+    //    },
+    //    error: function (settings, jqXHR) {
+    //        alert(jqXHR);
+    //    }
+        
+    //});
 });

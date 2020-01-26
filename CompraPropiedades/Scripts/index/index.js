@@ -6,6 +6,7 @@ var slcProvincia   = $("#slcProvincia");
 var slcSector      = $("#slcSector");
 var btnBuscar      = $("#btnBuscar");
 
+
     //Declaración de funciones
 function cargarPrecios() {
 
@@ -37,9 +38,10 @@ function cargarProvincias() {
         url: "/home/Provincias",
         success: function (res) {
             var respuesta = JSON.parse(res);
+            console.log(respuesta);
             for (var indice = 0; indice < respuesta.length; indice++) {
 
-                slcProvincia.append("<option value=" + respuesta[indice].IdProvincia + ">" + respuesta[indice].Descripcion + "</option >");
+                slcProvincia.append("<option value=" + respuesta[indice].IdProvince + ">" + respuesta[indice].Description + "</option >");
             }
         },
         error: function (settings, jqxhr) {
@@ -74,7 +76,7 @@ slcProvincia.change(function () {
             slcSector.empty();
             slcSector.append("<option value=0>Seleccione un sector</option >");
             json.forEach(function (item) {
-                slcSector.append("<option value=" + item.IdSector + ">" + item.Descripcion + "</option >");
+                slcSector.append("<option value=" + item.IdSector + ">" + item.Description + "</option >");
 
             });
         },

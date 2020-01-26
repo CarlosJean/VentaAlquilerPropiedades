@@ -1,0 +1,17 @@
+﻿
+section {
+    margin-left:5%;
+    margin-right:5%;
+}
+
+#hTitle {
+    text-align: center;
+}
+
+#spnPrice {
+    text-align:right;
+}
+
+#pDescription {
+    text-align: justify;
+}
