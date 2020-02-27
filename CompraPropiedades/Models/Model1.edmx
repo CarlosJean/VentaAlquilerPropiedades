@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CompraPropiedadesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <Function Name="REGISTERPUBLICATION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Title" Type="nvarchar" Mode="In" />
+          <Parameter Name="Description" Type="nvarchar" Mode="In" />
+          <Parameter Name="IdUser" Type="int" Mode="In" />
+          <Parameter Name="IdSector" Type="int" Mode="In" />
+          <Parameter Name="UbicationCoordinates" Type="nvarchar" Mode="In" />
+          <Parameter Name="PropertyType" Type="int" Mode="In" />
+          <Parameter Name="Price" Type="real" Mode="In" />
+          <Parameter Name="PublicationType" Type="int" Mode="In" />
+        </Function>
+        <Function Name="REGISTERUSER" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Name" Type="nvarchar" Mode="In" />
+          <Parameter Name="LastName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Email" Type="nvarchar" Mode="In" />
+          <Parameter Name="Password" Type="nvarchar" Mode="In" />
+          <Parameter Name="Phone" Type="nvarchar" Mode="In" />
+          <Parameter Name="Address" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spUnablePublication" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idPublication_IN" Type="int" Mode="In" />
+          <Parameter Name="codError" Type="int" Mode="InOut" />
+          <Parameter Name="msjError" Type="nvarchar" Mode="InOut" />
+        </Function>
+        <EntityContainer Name="CompraPropiedadesModelStoreContainer" />
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CompraPropiedadesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="CompraPropiedadesEntities2" annotation:LazyLoadingEnabled="true" >
+          <FunctionImport Name="REGISTERPUBLICATION">
+            <Parameter Name="Title" Mode="In" Type="String" />
+            <Parameter Name="Description" Mode="In" Type="String" />
+            <Parameter Name="IdUser" Mode="In" Type="Int32" />
+            <Parameter Name="IdSector" Mode="In" Type="Int32" />
+            <Parameter Name="UbicationCoordinates" Mode="In" Type="String" />
+            <Parameter Name="PropertyType" Mode="In" Type="Int32" />
+            <Parameter Name="Price" Mode="In" Type="Single" />
+            <Parameter Name="PublicationType" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="REGISTERUSER">
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="LastName" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="Phone" Mode="In" Type="String" />
+            <Parameter Name="Address" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spUnablePublication" ReturnType="Collection(String)">
+            <Parameter Name="idPublication_IN" Mode="In" Type="Int32" />
+            <Parameter Name="codError" Mode="InOut" Type="Int32" />
+            <Parameter Name="msjError" Mode="InOut" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CompraPropiedadesModelStoreContainer" CdmEntityContainer="CompraPropiedadesEntities2" >
+          <FunctionImportMapping FunctionImportName="REGISTERPUBLICATION" FunctionName="CompraPropiedadesModel.Store.REGISTERPUBLICATION" />
+          <FunctionImportMapping FunctionImportName="REGISTERUSER" FunctionName="CompraPropiedadesModel.Store.REGISTERUSER" />
+          <FunctionImportMapping FunctionImportName="spUnablePublication" FunctionName="CompraPropiedadesModel.Store.spUnablePublication" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

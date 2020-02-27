@@ -1,0 +1,41 @@
+﻿@model IEnumerable<CompraPropiedades.ViewModels.MyPublicationsViewModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Styles.Render("~/bundles/MyPublications.css")
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<section>
+    @foreach (var publication in Model) {
+        <div class="row dvPublication">
+            <div class="col-sm-3 dvPublicationImage">
+                <img src='@publication.Image' />
+            </div>
+            <div class="col-sm-8">
+                <p>@publication.Title</p>
+                <p>@publication.Description</p>
+            </div>
+            <div class="col-sm-1">
+                <a aria-haspopup="true" aria-expanded="false" id="dropdownMenuLink" data-toggle="dropdown"><i class="material-icons">more_vert</i></a>
+                <div class="dropdown-menu cmbAction" aria-labelledby="dropdownMenuButton" id="cmbAction_@publication.PublicationId">
+                    <a class="dropdown-item" href="#" id="viewDetail_@publication.PublicationId">
+                    <img src="~/Assets/icons/info.svg" />&nbsp;Ver detalle</a>
+                    @if (publication.Available == false) {
+                        <a class="dropdown-item" href="#" id="showPost_@publication.PublicationId">
+                        <img src="~/Assets/icons/check_circle.svg"/>&nbsp; Marcar como disponible</a>
+                    } else {
+                        <a class="dropdown-item" href="#" id="hidePost_@publication.PublicationId">
+                        <img src="~/Assets/icons/cancel.svg"/>&nbsp;Marcar como no disponible</a>
+                    }
+
+                    @*<a class="dropdown-item" href="#" id="hidePost_@publication.PublicationId">Ocultar Publicación</a>*@
+                </div>
+            </div>
+        </div>
+    }
+</section>
+
+@Scripts.Render("~/bundles/MyPosts.js")
+

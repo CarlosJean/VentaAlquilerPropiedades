@@ -12,7 +12,7 @@ namespace CompraPropiedades.Controllers
     public class PostController : Controller
     {
 
-        IPublicationService _publicationService;
+        IPublicationService  _publicationService;
 
         public PostController(IPublicationService publicationService) {
 
@@ -21,9 +21,9 @@ namespace CompraPropiedades.Controllers
         // GET: Post
         public ActionResult Index()
         {
-            //var publication
+            var postViewModel = new PostViewModel();
 
-            return View("POST");
+            return View("POST", postViewModel);
         }
 
         // GET: Post/Details/5
@@ -46,12 +46,17 @@ namespace CompraPropiedades.Controllers
             {
                 // TODO: Add insert logic here
 
-                //this._publicationService.RegisterPublication(postViewModel);
+                if (ModelState.IsValid) {
+                    this._publicationService.RegisterPublication(postViewModel);
 
-                return RedirectToAction("SavedPost");
+                    return RedirectToAction("SavedPost");
+                }
+
+                return View("Post",postViewModel);
             }
             catch(Exception ex)
             {
+                Console.WriteLine(ex);
                 return View();
             }
         }

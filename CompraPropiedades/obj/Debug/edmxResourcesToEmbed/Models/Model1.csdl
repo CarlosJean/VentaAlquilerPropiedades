@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CompraPropiedadesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="CompraPropiedadesEntities2" annotation:LazyLoadingEnabled="true">
+    <FunctionImport Name="REGISTERPUBLICATION">
+      <Parameter Name="Title" Mode="In" Type="String" />
+      <Parameter Name="Description" Mode="In" Type="String" />
+      <Parameter Name="IdUser" Mode="In" Type="Int32" />
+      <Parameter Name="IdSector" Mode="In" Type="Int32" />
+      <Parameter Name="UbicationCoordinates" Mode="In" Type="String" />
+      <Parameter Name="PropertyType" Mode="In" Type="Int32" />
+      <Parameter Name="Price" Mode="In" Type="Single" />
+      <Parameter Name="PublicationType" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="REGISTERUSER">
+      <Parameter Name="Name" Mode="In" Type="String" />
+      <Parameter Name="LastName" Mode="In" Type="String" />
+      <Parameter Name="Email" Mode="In" Type="String" />
+      <Parameter Name="Password" Mode="In" Type="String" />
+      <Parameter Name="Phone" Mode="In" Type="String" />
+      <Parameter Name="Address" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="spUnablePublication" ReturnType="Collection(String)">
+      <Parameter Name="idPublication_IN" Mode="In" Type="Int32" />
+      <Parameter Name="codError" Mode="InOut" Type="Int32" />
+      <Parameter Name="msjError" Mode="InOut" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+</Schema>

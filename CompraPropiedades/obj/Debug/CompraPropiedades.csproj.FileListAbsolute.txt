@@ -144,3 +144,8 @@ C:\Users\Jean Holguin\source\repos\CompraPropiedades\CompraPropiedades\bin\Unity
 C:\Users\Jean Holguin\source\repos\CompraPropiedades\CompraPropiedades\bin\Unity.Microsoft.DependencyInjection.pdb
 C:\Users\Jean Holguin\source\repos\CompraPropiedades\CompraPropiedades\bin\Unity.Mvc.pdb
 C:\Users\Jean Holguin\source\repos\CompraPropiedades\CompraPropiedades\bin\Unity.Mvc.xml
+C:\Users\Jean Holguin\source\repos\CompraPropiedades\CompraPropiedades\obj\Debug\CompraPropiedades.Migrations.Initial.resources
+C:\Users\Jean Holguin\source\repos\CompraPropiedades\CompraPropiedades\obj\Debug\CompraPropiedades.csproj.GenerateResource.cache
+C:\Users\Jean Holguin\source\repos\CompraPropiedades\CompraPropiedades\obj\Debug\CompraPropiedades.Migrations.Initial1.resources
+C:\Users\Jean Holguin\source\repos\CompraPropiedades\CompraPropiedades\obj\Debug\CompraPropiedades.Migrations.migration1.resources
+C:\Users\Jean Holguin\source\repos\CompraPropiedades\CompraPropiedades\obj\Debug\CompraPropiedades.Migrations.secondmigration.resources

@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CompraPropiedadesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <Function Name="REGISTERPUBLICATION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Title" Type="nvarchar" Mode="In" />
+    <Parameter Name="Description" Type="nvarchar" Mode="In" />
+    <Parameter Name="IdUser" Type="int" Mode="In" />
+    <Parameter Name="IdSector" Type="int" Mode="In" />
+    <Parameter Name="UbicationCoordinates" Type="nvarchar" Mode="In" />
+    <Parameter Name="PropertyType" Type="int" Mode="In" />
+    <Parameter Name="Price" Type="real" Mode="In" />
+    <Parameter Name="PublicationType" Type="int" Mode="In" />
+  </Function>
+  <Function Name="REGISTERUSER" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Name" Type="nvarchar" Mode="In" />
+    <Parameter Name="LastName" Type="nvarchar" Mode="In" />
+    <Parameter Name="Email" Type="nvarchar" Mode="In" />
+    <Parameter Name="Password" Type="nvarchar" Mode="In" />
+    <Parameter Name="Phone" Type="nvarchar" Mode="In" />
+    <Parameter Name="Address" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="spUnablePublication" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idPublication_IN" Type="int" Mode="In" />
+    <Parameter Name="codError" Type="int" Mode="InOut" />
+    <Parameter Name="msjError" Type="nvarchar" Mode="InOut" />
+  </Function>
+  <EntityContainer Name="CompraPropiedadesModelStoreContainer" />
+</Schema>

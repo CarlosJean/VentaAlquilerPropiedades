@@ -5,14 +5,16 @@ using System.Linq;
 using System.Web;
 using CompraPropiedades.ViewModels;
 using System.IO;
+using System.Web.Mvc;
+using System.Data.Entity.Core.Objects;
 
 namespace CompraPropiedades.Repositories
 {
     
-    public class PublicationService:IPublicationService
+    public class PublicationService:IPublicationService 
     {
         private readonly VentaPropiedadesContext _db;
-        private  string _defaultDirectoryPath = "C:/Users/Jean Holguin/source/repos/CompraPropiedades/CompraPropiedades/Publications/";
+        private readonly string _defaultDirectoryPath = "C:/Users/Jean Holguin/source/repos/CompraPropiedades/CompraPropiedades/App_Data/Images/";
         public PublicationService() {
             this._db = new VentaPropiedadesContext();
         }
@@ -37,7 +39,6 @@ namespace CompraPropiedades.Repositories
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex);
                   transaction.Rollback();
                 }
                 
@@ -52,6 +53,9 @@ namespace CompraPropiedades.Repositories
             postViewModel.Publication.IdUser = 1;
             postViewModel.Publication.User = this._db.User.FirstOrDefault(p => p.IdUser == postViewModel.Publication.IdUser);
             postViewModel.Publication.PropertyType = this._db.PropertyType.FirstOrDefault(p => p.IdPropertyType == postViewModel.Publication.IdPropertyType);
+
+            postViewModel.Publication.Active    = true;
+            postViewModel.Publication.Available = true;
 
             this._db.Publication.Add(postViewModel.Publication);
             this._db.SaveChanges();
@@ -117,7 +121,7 @@ namespace CompraPropiedades.Repositories
             var _imageContentType = imageContentType.Split("/".ToCharArray());
             var imageType = _imageContentType[1];
 
-            var imagePath = "../Assets/Images/"+ _publicationId + "/Imagen"+ _imageNumber+"."+imageType;
+            var imagePath = "../AppData/Images/" + _publicationId + "/Image"+ _imageNumber+"."+imageType;
 
             return imagePath;
         }
@@ -130,9 +134,46 @@ namespace CompraPropiedades.Repositories
                 Directory.CreateDirectory(basePath);
             }
             
-            string path = basePath + "/Imagen"+index.ToString()+"."+ imageType;
+            string path = basePath + "/Image"+index.ToString()+"."+ imageType;
             file.SaveAs(path);
 
+        }
+
+        public List<MyPublicationsViewModel> GetMyPublications(int idUser){
+            var publications = (from p in this._db.Publication
+                                where p.IdUser == 1
+                                select new {p.IdPublication,
+                                    p.Title, p.Description,
+                                    (from publicationImage in this._db.PublicationImage
+                                     where publicationImage.IdPublication == p.IdPublication
+                                     select new { publicationImage.Image}
+                                    ).FirstOrDefault().Image,
+                                    p.Available
+                                }).ToList();
+
+            List<MyPublicationsViewModel> myPublicationsViewModelsList = new List<MyPublicationsViewModel>();
+            MyPublicationsViewModel myPublicationsViewModel       = new MyPublicationsViewModel();
+
+            foreach (var publication in publications) {
+                myPublicationsViewModelsList.Add(new MyPublicationsViewModel { PublicationId=publication.IdPublication,
+                                                                               Title = publication.Title, 
+                                                                               Description = publication.Description, 
+                                                                               Image = publication.Image,
+                                                                               Available = publication.Available});
+             
+            }
+
+            return myPublicationsViewModelsList;            
+        }
+
+        public HidePublication Hide(int idPublication) {
+            var result = this._db.SpHidePublication(idPublication);
+            return result;
+        }
+        
+        public HidePublication Show(int idPublication) {
+            var result = this._db.SpShowPublication(idPublication);
+            return result;
         }
     }
 }

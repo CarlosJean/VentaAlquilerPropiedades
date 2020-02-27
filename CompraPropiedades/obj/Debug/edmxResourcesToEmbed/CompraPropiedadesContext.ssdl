@@ -1,0 +1,285 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CompraPropiedadesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+    <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+    <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Acommodations">
+    <Key>
+      <PropertyRef Name="IdAcommodation" />
+    </Key>
+    <Property Name="IdAcommodation" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Prices">
+    <Key>
+      <PropertyRef Name="IdPrice" />
+    </Key>
+    <Property Name="IdPrice" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="PropertyTypes">
+    <Key>
+      <PropertyRef Name="IdPropertyType" />
+    </Key>
+    <Property Name="IdPropertyType" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Provinces">
+    <Key>
+      <PropertyRef Name="IdProvince" />
+    </Key>
+    <Property Name="IdProvince" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="PublicationAcommodations">
+    <Key>
+      <PropertyRef Name="IdAcommodationPublication" />
+    </Key>
+    <Property Name="IdAcommodationPublication" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdAcommodation" Type="int" Nullable="false" />
+    <Property Name="IdPublication" Type="int" Nullable="false" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PublicationImages">
+    <Key>
+      <PropertyRef Name="IdPublicationImage" />
+    </Key>
+    <Property Name="IdPublicationImage" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdPublication" Type="int" Nullable="false" />
+    <Property Name="Image" Type="nvarchar(max)" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Publications">
+    <Key>
+      <PropertyRef Name="IdPublication" />
+    </Key>
+    <Property Name="IdPublication" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar(max)" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="PublicationDate" Type="datetime" Nullable="false" />
+    <Property Name="IdUser" Type="int" Nullable="false" />
+    <Property Name="Ubication" Type="nvarchar(max)" />
+    <Property Name="IdSector" Type="int" Nullable="false" />
+    <Property Name="UbicationCoordinates" Type="nvarchar(max)" />
+    <Property Name="IdPropertyType" Type="int" Nullable="false" />
+    <Property Name="Price" Type="real" Nullable="false" />
+    <Property Name="IdPublicationType" Type="int" Nullable="false" />
+    <Property Name="Available" Type="bit" Nullable="false" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PublicationTypes">
+    <Key>
+      <PropertyRef Name="IdPublicationType" />
+    </Key>
+    <Property Name="IdPublicationType" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Sectors">
+    <Key>
+      <PropertyRef Name="IdSector" />
+    </Key>
+    <Property Name="IdSector" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="IdProvince" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="IdUser" />
+    </Key>
+    <Property Name="IdUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" />
+    <Property Name="LastName" Type="nvarchar(max)" />
+    <Property Name="Email" Type="nvarchar(max)" />
+    <Property Name="Password" Type="nvarchar(max)" />
+    <Property Name="Phone" Type="nvarchar(max)" />
+    <Property Name="Address" Type="nvarchar(max)" />
+    <Property Name="RegistrationDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_dbo_PublicationAcommodations_dbo_Acommodations_IdAcommodation">
+    <End Role="Acommodations" Type="Self.Acommodations" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="PublicationAcommodations" Type="Self.PublicationAcommodations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Acommodations">
+        <PropertyRef Name="IdAcommodation" />
+      </Principal>
+      <Dependent Role="PublicationAcommodations">
+        <PropertyRef Name="IdAcommodation" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_PublicationAcommodations_dbo_Publications_IdPublication">
+    <End Role="Publications" Type="Self.Publications" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="PublicationAcommodations" Type="Self.PublicationAcommodations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Publications">
+        <PropertyRef Name="IdPublication" />
+      </Principal>
+      <Dependent Role="PublicationAcommodations">
+        <PropertyRef Name="IdPublication" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_PublicationImages_dbo_Publications_IdPublication">
+    <End Role="Publications" Type="Self.Publications" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="PublicationImages" Type="Self.PublicationImages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Publications">
+        <PropertyRef Name="IdPublication" />
+      </Principal>
+      <Dependent Role="PublicationImages">
+        <PropertyRef Name="IdPublication" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_Publications_dbo_PropertyTypes_IdPropertyType">
+    <End Role="PropertyTypes" Type="Self.PropertyTypes" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Publications" Type="Self.Publications" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PropertyTypes">
+        <PropertyRef Name="IdPropertyType" />
+      </Principal>
+      <Dependent Role="Publications">
+        <PropertyRef Name="IdPropertyType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_Publications_dbo_PublicationTypes_IdPublicationType">
+    <End Role="PublicationTypes" Type="Self.PublicationTypes" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Publications" Type="Self.Publications" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PublicationTypes">
+        <PropertyRef Name="IdPublicationType" />
+      </Principal>
+      <Dependent Role="Publications">
+        <PropertyRef Name="IdPublicationType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_Publications_dbo_Sectors_IdSector">
+    <End Role="Sectors" Type="Self.Sectors" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Publications" Type="Self.Publications" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sectors">
+        <PropertyRef Name="IdSector" />
+      </Principal>
+      <Dependent Role="Publications">
+        <PropertyRef Name="IdSector" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_Publications_dbo_Users_IdUser">
+    <End Role="Users" Type="Self.Users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Publications" Type="Self.Publications" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="IdUser" />
+      </Principal>
+      <Dependent Role="Publications">
+        <PropertyRef Name="IdUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_Sectors_dbo_Provinces_IdProvince">
+    <End Role="Provinces" Type="Self.Provinces" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Sectors" Type="Self.Sectors" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Provinces">
+        <PropertyRef Name="IdProvince" />
+      </Principal>
+      <Dependent Role="Sectors">
+        <PropertyRef Name="IdProvince" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="REGISTERPUBLICATION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Title" Type="nvarchar" Mode="In" />
+    <Parameter Name="Description" Type="nvarchar" Mode="In" />
+    <Parameter Name="IdUser" Type="int" Mode="In" />
+    <Parameter Name="IdSector" Type="int" Mode="In" />
+    <Parameter Name="UbicationCoordinates" Type="nvarchar" Mode="In" />
+    <Parameter Name="PropertyType" Type="int" Mode="In" />
+    <Parameter Name="Price" Type="real" Mode="In" />
+    <Parameter Name="PublicationType" Type="int" Mode="In" />
+  </Function>
+  <Function Name="REGISTERUSER" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Name" Type="nvarchar" Mode="In" />
+    <Parameter Name="LastName" Type="nvarchar" Mode="In" />
+    <Parameter Name="Email" Type="nvarchar" Mode="In" />
+    <Parameter Name="Password" Type="nvarchar" Mode="In" />
+    <Parameter Name="Phone" Type="nvarchar" Mode="In" />
+    <Parameter Name="Address" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="spUnablePublication" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idPublication_IN" Type="int" Mode="In" />
+    <Parameter Name="codError" Type="int" Mode="InOut" />
+    <Parameter Name="msjError" Type="nvarchar" Mode="InOut" />
+  </Function>
+  <EntityContainer Name="CompraPropiedadesModelStoreContainer">
+    <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Acommodations" EntityType="Self.Acommodations" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Prices" EntityType="Self.Prices" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PropertyTypes" EntityType="Self.PropertyTypes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Provinces" EntityType="Self.Provinces" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PublicationAcommodations" EntityType="Self.PublicationAcommodations" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PublicationImages" EntityType="Self.PublicationImages" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Publications" EntityType="Self.Publications" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PublicationTypes" EntityType="Self.PublicationTypes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Sectors" EntityType="Self.Sectors" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_dbo_PublicationAcommodations_dbo_Acommodations_IdAcommodation" Association="Self.FK_dbo_PublicationAcommodations_dbo_Acommodations_IdAcommodation">
+      <End Role="Acommodations" EntitySet="Acommodations" />
+      <End Role="PublicationAcommodations" EntitySet="PublicationAcommodations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_PublicationAcommodations_dbo_Publications_IdPublication" Association="Self.FK_dbo_PublicationAcommodations_dbo_Publications_IdPublication">
+      <End Role="Publications" EntitySet="Publications" />
+      <End Role="PublicationAcommodations" EntitySet="PublicationAcommodations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_PublicationImages_dbo_Publications_IdPublication" Association="Self.FK_dbo_PublicationImages_dbo_Publications_IdPublication">
+      <End Role="Publications" EntitySet="Publications" />
+      <End Role="PublicationImages" EntitySet="PublicationImages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_Publications_dbo_PropertyTypes_IdPropertyType" Association="Self.FK_dbo_Publications_dbo_PropertyTypes_IdPropertyType">
+      <End Role="PropertyTypes" EntitySet="PropertyTypes" />
+      <End Role="Publications" EntitySet="Publications" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_Publications_dbo_PublicationTypes_IdPublicationType" Association="Self.FK_dbo_Publications_dbo_PublicationTypes_IdPublicationType">
+      <End Role="PublicationTypes" EntitySet="PublicationTypes" />
+      <End Role="Publications" EntitySet="Publications" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_Publications_dbo_Sectors_IdSector" Association="Self.FK_dbo_Publications_dbo_Sectors_IdSector">
+      <End Role="Sectors" EntitySet="Sectors" />
+      <End Role="Publications" EntitySet="Publications" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_Publications_dbo_Users_IdUser" Association="Self.FK_dbo_Publications_dbo_Users_IdUser">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Publications" EntitySet="Publications" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_Sectors_dbo_Provinces_IdProvince" Association="Self.FK_dbo_Sectors_dbo_Provinces_IdProvince">
+      <End Role="Provinces" EntitySet="Provinces" />
+      <End Role="Sectors" EntitySet="Sectors" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

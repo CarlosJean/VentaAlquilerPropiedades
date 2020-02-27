@@ -9,10 +9,7 @@ namespace CompraPropiedades.ViewModels
 {
     public class PostViewModel
     {
-        //public PostViewModel()
-        //{
-        //    File = new HttpPostedFileBase();
-        //}
+
         public Publication Publication { get; set; }
 
         public List<HttpPostedFileBase> PublicationImage { get; set; }

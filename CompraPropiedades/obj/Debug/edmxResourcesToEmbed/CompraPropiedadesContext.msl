@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CompraPropiedadesModelStoreContainer" CdmEntityContainer="CompraPropiedadesEntities">
+    <FunctionImportMapping FunctionImportName="spUnablePublication" FunctionName="CompraPropiedadesModel.Store.spUnablePublication" />
+    <EntitySetMapping Name="C__MigrationHistory">
+      <EntityTypeMapping TypeName="CompraPropiedadesModel.C__MigrationHistory">
+        <MappingFragment StoreEntitySet="__MigrationHistory">
+          <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+          <ScalarProperty Name="Model" ColumnName="Model" />
+          <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+          <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Acommodations">
+      <EntityTypeMapping TypeName="CompraPropiedadesModel.Acommodation">
+        <MappingFragment StoreEntitySet="Acommodations">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="IdAcommodation" ColumnName="IdAcommodation" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Prices">
+      <EntityTypeMapping TypeName="CompraPropiedadesModel.Price">
+        <MappingFragment StoreEntitySet="Prices">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="IdPrice" ColumnName="IdPrice" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PropertyTypes">
+      <EntityTypeMapping TypeName="CompraPropiedadesModel.PropertyType">
+        <MappingFragment StoreEntitySet="PropertyTypes">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="IdPropertyType" ColumnName="IdPropertyType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Provinces">
+      <EntityTypeMapping TypeName="CompraPropiedadesModel.Province">
+        <MappingFragment StoreEntitySet="Provinces">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="IdProvince" ColumnName="IdProvince" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PublicationAcommodations">
+      <EntityTypeMapping TypeName="CompraPropiedadesModel.PublicationAcommodation">
+        <MappingFragment StoreEntitySet="PublicationAcommodations">
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="IdPublication" ColumnName="IdPublication" />
+          <ScalarProperty Name="IdAcommodation" ColumnName="IdAcommodation" />
+          <ScalarProperty Name="IdAcommodationPublication" ColumnName="IdAcommodationPublication" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PublicationImages">
+      <EntityTypeMapping TypeName="CompraPropiedadesModel.PublicationImage">
+        <MappingFragment StoreEntitySet="PublicationImages">
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="IdPublication" ColumnName="IdPublication" />
+          <ScalarProperty Name="IdPublicationImage" ColumnName="IdPublicationImage" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Publications">
+      <EntityTypeMapping TypeName="CompraPropiedadesModel.Publication">
+        <MappingFragment StoreEntitySet="Publications">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="Available" ColumnName="Available" />
+          <ScalarProperty Name="IdPublicationType" ColumnName="IdPublicationType" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="IdPropertyType" ColumnName="IdPropertyType" />
+          <ScalarProperty Name="UbicationCoordinates" ColumnName="UbicationCoordinates" />
+          <ScalarProperty Name="IdSector" ColumnName="IdSector" />
+          <ScalarProperty Name="Ubication" ColumnName="Ubication" />
+          <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+          <ScalarProperty Name="PublicationDate" ColumnName="PublicationDate" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="IdPublication" ColumnName="IdPublication" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PublicationTypes">
+      <EntityTypeMapping TypeName="CompraPropiedadesModel.PublicationType">
+        <MappingFragment StoreEntitySet="PublicationTypes">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="IdPublicationType" ColumnName="IdPublicationType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sectors">
+      <EntityTypeMapping TypeName="CompraPropiedadesModel.Sector">
+        <MappingFragment StoreEntitySet="Sectors">
+          <ScalarProperty Name="IdProvince" ColumnName="IdProvince" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="IdSector" ColumnName="IdSector" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="CompraPropiedadesModel.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="REGISTERPUBLICATION" FunctionName="CompraPropiedadesModel.Store.REGISTERPUBLICATION" />
+    <FunctionImportMapping FunctionImportName="REGISTERUSER" FunctionName="CompraPropiedadesModel.Store.REGISTERUSER" />
+  </EntityContainerMapping>
+</Mapping>

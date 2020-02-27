@@ -1,0 +1,64 @@
+﻿@model CompraPropiedades.ViewModels.PostViewModel
+
+<div class="form-group">
+    @Html.TextBoxFor(m => m.Publication.Title, new { @class = "form-control", @placeholder = "Título" })
+    @Html.ValidationMessageFor(m => m.Publication.Title, null, new { @class = "text-danger" })
+</div>
+
+<div class="form-group">
+    @Html.TextAreaFor(m => m.Publication.Description, new {
+        @class = "form-control",
+        @placeholder = "Descripción"@*, @required = "true"*@})
+    @Html.ValidationMessageFor(m => m.Publication.Description, null, new { @class = "text-danger" })
+</div>
+
+<div class="form-group row">
+    <div class="col-sm-4 row">
+        <div class="col-sm-12">
+            @Html.EditorFor(m => m.Publication.Price, new {
+htmlAttributes = new {
+@class = "form-control",
+@placeholder = "Precio",
+@type = "number"@*,@required="true"*@}
+})
+    </div>
+    <div class="col-sm-12"> @Html.ValidationMessageFor(m => m.Publication.Price, null, new { @class = "text-danger" })</div>
+</div>
+
+<div class="col-sm-4"><select id="slcProvinces" class="form-control" required><option value="0">Provincia</option></select></div>
+
+<div class="col-sm-4 row">
+    <div class="col-sm-12"><select id="slcSectors" class="form-control" name="Publication.IdSector" required><option>Sector</option></select></div>
+    <div class="col-sm-12">@Html.ValidationMessageFor(m => m.Publication.IdSector, "Debe especificar un sector.", new { @class = "text-danger" })</div>
+</div>
+
+</div>
+
+<div class="form-group row">
+    <div class="col-sm-6">
+        <select name="Publication.IdPropertyType" id="slcPropertyTypes" class="form-control" required><option>Tipo de propiedad</option></select>
+        @Html.ValidationMessageFor(m => m.Publication.IdPropertyType, "Debe especificar un tipo de propiedad.", new { @class = "text-danger" })
+    </div>
+    <div class="col-sm-6">
+        <select name="Publication.IdPublicationType" id="slcPublicationTypes" class="form-control" required><option>Tipo de publicación</option></select>
+        @Html.ValidationMessageFor(m => m.Publication.IdPublicationType, "Debe especificar un tipo de publicación.", new { @class = "text-danger" })
+    </div>
+</div>
+
+<p><strong>Comodidades:</strong></p>
+<hr />
+<div id="dvAccomodations" class="row"></div>
+<div class="row">
+    <div class="col-sm-12">
+        <p><strong>Imágenes:</strong></p>
+        <hr />
+    </div>
+    <div class="col-sm-12">
+        @Html.TextBoxFor(m => m.PublicationImage, new { @type = "file", @multiple = "true", @accept = ".jpeg,.jpg, .png", @class = "form-control" })
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12" id="dvBtnSend">
+        <input type="submit" value="Enviar" class="btn btn-success" />
+    </div>
+</div>

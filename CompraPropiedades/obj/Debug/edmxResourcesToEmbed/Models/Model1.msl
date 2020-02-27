@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CompraPropiedadesModelStoreContainer" CdmEntityContainer="CompraPropiedadesEntities2">
+    <FunctionImportMapping FunctionImportName="REGISTERPUBLICATION" FunctionName="CompraPropiedadesModel.Store.REGISTERPUBLICATION" />
+    <FunctionImportMapping FunctionImportName="REGISTERUSER" FunctionName="CompraPropiedadesModel.Store.REGISTERUSER" />
+    <FunctionImportMapping FunctionImportName="spUnablePublication" FunctionName="CompraPropiedadesModel.Store.spUnablePublication" />
+  </EntityContainerMapping>
+</Mapping>
